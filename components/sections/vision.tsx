@@ -2,9 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Canvas } from "@react-three/fiber";
-import { VisionField } from "@/components/three/vision-field";
-import { Suspense } from "react";
+import EvilEye from "@/components/ui/evil-eye/EvilEye";
 
 export function VisionSection() {
   const containerRef = useRef<HTMLElement>(null);
@@ -21,12 +19,15 @@ export function VisionSection() {
   return (
     <section ref={containerRef} id="vision" className="relative min-h-[200vh] bg-black overflow-hidden z-20">
       {/* 3D Background */}
-      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 15], fov: 45 }}>
-          <Suspense fallback={null}>
-            <VisionField />
-          </Suspense>
-        </Canvas>
+        <div className="absolute inset-0 z-0">
+        <EvilEye 
+          eyeColor="#120202ff"
+          intensity={2.0}
+          glowIntensity={0.5}
+          scale={0.55}
+          pupilFollow={1.2}
+          flameSpeed={0.4}
+        />
       </div>
 
       <div className="sticky top-0 h-screen flex items-center justify-center">
@@ -86,7 +87,7 @@ export function VisionSection() {
             <div className="mt-20 flex flex-wrap gap-8 items-center text-[10px] font-mono text-gray-600 uppercase tracking-widest">
               <div className="flex items-center space-x-2">
                 <span>Core Status:</span>
-                <span className="text-green-500">Optimal</span>
+                <span className="text-red-500">Optimal</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span>Encryption:</span>

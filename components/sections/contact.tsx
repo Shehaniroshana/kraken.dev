@@ -159,7 +159,7 @@ export function ContactSection() {
                 </div>
 
                 {status && (
-                  <div className={`text-[10px] font-mono uppercase tracking-widest p-4 ${status.type === 'success' ? 'text-green-500 bg-green-500/5' : 'text-red-500 bg-red-500/5'}`}>
+                  <div className={`text-[10px] font-mono uppercase tracking-widest p-4 ${status.type === 'success' ? 'text-red-500 bg-red-500/5' : 'text-red-500 bg-red-500/5'}`}>
                     &gt; {status.message}
                   </div>
                 )}
