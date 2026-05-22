@@ -19,6 +19,18 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
       touchMultiplier: 2,
     });
 
+    // Handle focus scrolling to prevent conflicts
+    const handleFocus = (e: FocusEvent) => {
+      const target = e.target as HTMLElement;
+      if (['INPUT', 'TEXTAREA'].includes(target.tagName)) {
+        setTimeout(() => {
+          lenis.scrollTo(target, { offset: -100, duration: 1 });
+        }, 100);
+      }
+    };
+
+    window.addEventListener('focusin', handleFocus as any);
+
     lenis.on('scroll', ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
@@ -29,6 +41,7 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
 
     return () => {
       lenis.destroy();
+      window.removeEventListener('focusin', handleFocus as any);
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000);
       });

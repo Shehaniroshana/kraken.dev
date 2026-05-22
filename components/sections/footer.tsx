@@ -21,6 +21,25 @@ export function Footer() {
                 <p className="text-gray-500 font-mono text-xs uppercase tracking-widest max-w-xs leading-relaxed">
                     Engineering scalable enterprise systems and next-generation AI platforms.
                 </p>
+
+                <div className="mt-12">
+                    <h4 className="text-white font-bold uppercase tracking-widest text-[10px] mb-6 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
+                        Newsletter Subscription
+                    </h4>
+                    <div className="relative w-full max-w-sm border-b border-white/10 group-hover:border-red-600/30 transition-colors duration-500">
+                        <input 
+                            type="email" 
+                            className="w-full bg-transparent py-2 text-white font-mono text-xs focus:outline-none focus:border-red-500 transition-colors placeholder:text-gray-700 uppercase tracking-widest"
+                            placeholder="COMM_LINK@KRAKEN"
+                        />
+                        <button className="absolute right-0 top-1/2 -translate-y-1/2 text-red-500 hover:text-white transition-all duration-300 hover:translate-x-1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div>

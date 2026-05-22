@@ -145,8 +145,8 @@ export function ShowcaseSection() {
                 trigger: triggerRef.current,
                 pin: true,
                 scrub: 1,
-                snap: 1 / (sections.length - 1),
-                end: () => "+=" + scrollContainerRef.current!.offsetWidth
+                // Removed aggressive snapping to prevent interference with other sections
+                end: () => "+=" + (scrollContainerRef.current!.offsetWidth - window.innerWidth)
             }
         });
     }
