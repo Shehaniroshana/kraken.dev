@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[100svh] w-full flex flex-col p-12 overflow-hidden z-10 pt-32">
+    <section id="hero" className="relative min-h-[100svh] w-full flex flex-col p-12 overflow-hidden z-10 pt-32">
       
       {/* Overlay Gradients */}
       <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-dark)] via-transparent to-[var(--bg-dark)] z-10 pointer-events-none" />

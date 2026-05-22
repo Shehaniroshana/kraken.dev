@@ -26,12 +26,12 @@ export function Navbar() {
       }`}
     >
       <div className="container mx-auto px-6 max-w-7xl flex justify-between items-center relative h-12">
-        <div className="flex items-center group cursor-pointer h-full">
+        <a href="#hero" className="flex items-center group cursor-pointer h-full">
           {/* Spacer to maintain layout */}
           <div className="w-64 h-1" />
           
           {/* Absolute Logo */}
-          <div className="absolute left-6 top-1/2 -translate-y-1/2 w-72 h-28 group-hover:scale-105 transition-transform duration-300 pointer-events-none">
+          <div className="absolute left-6 top-1/2 -translate-y-1/2 w-72 h-28 group-hover:scale-105 transition-transform duration-300">
             <Image 
               src={logoImg} 
               alt="Kraken Logo" 
@@ -40,7 +40,7 @@ export function Navbar() {
               className="object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.4)] object-left" 
             />
           </div>
-        </div>
+        </a>
         
         <nav className="hidden md:flex space-x-8 text-xs font-bold tracking-[0.2em] uppercase text-gray-400">
           <a href="#vision" className="hover:text-white transition-colors relative group">
