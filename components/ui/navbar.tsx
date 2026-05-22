@@ -22,13 +22,23 @@ export function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-black/50 backdrop-blur-md border-b border-white/5 py-4" : "bg-transparent py-8"
+        scrolled ? "bg-black/80 backdrop-blur-lg border-b border-white/5 py-2" : "bg-transparent py-6"
       }`}
     >
-      <div className="container mx-auto px-6 max-w-7xl flex justify-between items-center">
-        <div className="flex items-center space-x-3 group cursor-pointer">
-          <div className="relative w-56 h-14 group-hover:scale-105 transition-transform duration-300">
-            <Image src={logoImg} alt="Kraken Logo" fill className="object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.5)] object-left" />
+      <div className="container mx-auto px-6 max-w-7xl flex justify-between items-center relative h-12">
+        <div className="flex items-center group cursor-pointer h-full">
+          {/* Spacer to maintain layout */}
+          <div className="w-64 h-1" />
+          
+          {/* Absolute Logo */}
+          <div className="absolute left-6 top-1/2 -translate-y-1/2 w-72 h-28 group-hover:scale-105 transition-transform duration-300 pointer-events-none">
+            <Image 
+              src={logoImg} 
+              alt="Kraken Logo" 
+              fill 
+              priority
+              className="object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.4)] object-left" 
+            />
           </div>
         </div>
         

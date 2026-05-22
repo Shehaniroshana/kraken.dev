@@ -1,54 +1,109 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import { Canvas } from "@react-three/fiber";
+import { VisionField } from "@/components/three/vision-field";
+import { Suspense } from "react";
 
 export function VisionSection() {
   const containerRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLHeadingElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    if (textRef.current) {
-        gsap.fromTo(
-            textRef.current,
-            { clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" },
-            {
-                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-                ease: "power3.inOut",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top center",
-                    end: "center center",
-                    scrub: 1,
-                }
-            }
-        );
-    }
-  }, []);
+  const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
 
   return (
-    <section ref={containerRef} id="vision" className="relative h-[150vh] bg-black z-20">
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        {/* Dynamic Background */}
-        <div className="absolute inset-0 w-full h-full">
-            <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 to-transparent animation-pulse"></div>
-            <div className="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] rounded-full bg-red-900/20 blur-[150px] mix-blend-screen mix-blend-color-dodge mix-blend-color-dodge"></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10 text-center">
-            <div className="inline-block mb-8">
-                <span className="px-4 py-1 text-[10px] font-mono tracking-widest text-red-500 border border-red-500/30 rounded-full bg-red-500/10">VISION</span>
-            </div>
-            
-            <h2 ref={textRef} className="text-5xl md:text-7xl lg:text-8xl font-display font-black text-white uppercase tracking-tighter leading-none mx-auto max-w-5xl">
-                Building <span className="text-transparent bg-clip-text bg-gradient-to-br from-red-400 to-red-800">intelligent digital ecosystems</span> for the next generation.
-            </h2>
-        </div>
+    <section ref={containerRef} id="vision" className="relative min-h-[200vh] bg-black overflow-hidden z-20">
+      {/* 3D Background */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 15], fov: 45 }}>
+          <Suspense fallback={null}>
+            <VisionField />
+          </Suspense>
+        </Canvas>
       </div>
+
+      <div className="sticky top-0 h-screen flex items-center justify-center">
+        <motion.div 
+          style={{ opacity, scale }}
+          className="container mx-auto px-6 relative z-10"
+        >
+          <div className="max-w-6xl mx-auto">
+            {/* Header Overlay */}
+            <div className="flex items-center justify-between mb-12 border-b border-red-500/20 pb-4">
+              <div className="flex items-center space-x-4">
+                <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+                <span className="text-[10px] font-mono tracking-[0.3em] text-red-500 uppercase">System Vision v2.0.4</span>
+              </div>
+              <div className="hidden md:block text-[10px] font-mono text-gray-500">
+                COORD: 34.0522° N, 118.2437° W
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <div className="lg:col-span-8">
+                <motion.h2 
+                  style={{ y: y1 }}
+                  className="text-6xl md:text-8xl lg:text-9xl font-display font-black text-white uppercase leading-[0.85] tracking-tighter"
+                >
+                  Defining the <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-800 to-red-600">
+                    New Frontier
+                  </span>
+                </motion.h2>
+              </div>
+              
+              <div className="lg:col-span-4">
+                <motion.div 
+                  style={{ y: y2 }}
+                  className="space-y-8"
+                >
+                  <p className="text-lg md:text-xl text-gray-400 font-light leading-relaxed border-l-2 border-red-600 pl-6">
+                    We don&apos;t just build software; we engineer intelligent ecosystems that adapt, evolve, and redefine human-digital interaction.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 bg-white/5 border border-white/10 rounded-sm backdrop-blur-sm">
+                      <div className="text-red-500 font-mono text-xs mb-1">01. AUTONOMY</div>
+                      <div className="text-[10px] text-gray-500">Self-evolving architectures</div>
+                    </div>
+                    <div className="p-4 bg-white/5 border border-white/10 rounded-sm backdrop-blur-sm">
+                      <div className="text-red-500 font-mono text-xs mb-1">02. SYNERGY</div>
+                      <div className="text-[10px] text-gray-500">Neural-linked interfaces</div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Bottom HUD */}
+            <div className="mt-20 flex flex-wrap gap-8 items-center text-[10px] font-mono text-gray-600 uppercase tracking-widest">
+              <div className="flex items-center space-x-2">
+                <span>Core Status:</span>
+                <span className="text-green-500">Optimal</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span>Encryption:</span>
+                <span className="text-white">Quantum-Grade</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span>Latency:</span>
+                <span className="text-white">0.0012ms</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Decorative Gradients */}
+      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent z-1"></div>
+      <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black to-transparent z-1"></div>
     </section>
   );
 }

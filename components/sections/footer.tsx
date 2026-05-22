@@ -6,14 +6,15 @@ import logoImg from "@/assets/logo.png";
 
 export function Footer() {
   return (
-    <footer className="py-24 border-t border-[var(--glass-border)] relative z-20 bg-black overflow-hidden">
+    <footer className="py-16 border-t border-[var(--glass-border)] relative z-20 bg-black overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-t from-red-600/5 to-transparent pointer-events-none"></div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-            <div className="lg:col-span-2">
-                <div className="flex items-center mb-6">
-                    <div className="relative w-64 h-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            <div className="lg:col-span-2 relative">
+                {/* Zero-height container for absolute logo to prevent vertical push */}
+                <div className="h-8 mb-4 relative">
+                    <div className="absolute -top-8 -left-2 w-72 h-28">
                         <Image src={logoImg} alt="Kraken Logo" fill className="object-contain object-left" />
                     </div>
                 </div>
