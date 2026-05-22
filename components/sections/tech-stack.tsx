@@ -1,94 +1,104 @@
 "use client";
 
-import { motion } from "motion/react";
-import { useRef } from "react";
-
-const technologies = [
-  "React", "Next.js", "Spring Boot", "NestJS", "Docker", "PostgreSQL", "AWS", "Three.js", "WebGL", "Kubernetes", "Redis", "TensorFlow"
-];
+import { useRef, Suspense } from "react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { Canvas } from "@react-three/fiber";
+import { TechCloud } from "@/components/three/tech-cloud";
 
 export function TechStackSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  
+  // Parallax transforms for text layers
+  const y1 = useTransform(smoothProgress, [0, 1], ["0%", "-50%"]);
+  const y2 = useTransform(smoothProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(smoothProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
+  const scale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.2, 1]);
 
   return (
-    <section id="tech" ref={containerRef} className="relative py-40 overflow-hidden z-20">
-      {/* Background ambient lighting */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[800px] h-[800px] bg-red-600/5 rounded-full blur-[120px]" />
-      </div>
-
-      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
-        <div className="text-center mb-24">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-display font-black uppercase tracking-tighter text-[#525252]"
-          >
-            Core <span className="text-white">Technologies</span>
-          </motion.h2>
-          <p className="mt-4 text-gray-400 font-mono text-sm tracking-widest uppercase">System Stack Overview</p>
+    <section 
+      id="tech" 
+      ref={containerRef} 
+      className="relative h-[300vh] bg-black z-20"
+    >
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+        
+        {/* 3D Interactive Layer */}
+        <div className="absolute inset-0 z-0">
+          <Canvas camera={{ position: [0, 0, 15], fov: 45 }}>
+            <Suspense fallback={null}>
+              <TechCloud />
+            </Suspense>
+          </Canvas>
         </div>
 
-        {/* Orbital Animation Container */}
-        <div className="relative h-[600px] w-full flex items-center justify-center">
-          
-          {/* Center glowing core */}
-          <motion.div 
-            animate={{ scale: [1, 1.1, 1], rotate: 360 }}
-            transition={{ scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }, rotate: { duration: 20, repeat: Infinity, ease: "linear" } }}
-            className="absolute w-32 h-32 rounded-full border border-red-600/30 flex items-center justify-center bg-red-600/5 shadow-[0_0_50px_rgba(220,38,38,0.5)] z-20"
-          >
-            <div className="w-16 h-16 rounded-full bg-red-600 blur-[10px] animate-pulse" />
-            <div className="absolute w-full h-[1px] bg-red-600/50" />
-            <div className="absolute h-full w-[1px] bg-red-600/50" />
-          </motion.div>
-
-          {/* Orbit Rings & Tech Items */}
-          {[1, 2, 3].map((ringLevel) => {
-            const radius = ringLevel * 140;
-            const itemsInRing = ringLevel * 4;
-            const duration = 20 + (ringLevel * 10);
+        {/* Foreground Content Layers */}
+        <motion.div 
+          style={{ opacity }}
+          className="container mx-auto px-6 relative z-10 w-full"
+        >
+          <div className="relative h-screen w-full flex flex-col justify-center">
             
-            return (
-              <motion.div
-                key={ringLevel}
-                className="absolute orbit-ring"
-                style={{ width: radius * 2, height: radius * 2 }}
-                animate={{ rotate: ringLevel % 2 === 0 ? 360 : -360 }}
-                transition={{ duration, repeat: Infinity, ease: "linear" }}
-              >
-                {/* Dots on ring */}
-                {Array.from({ length: 4 }).map((_, i) => (
-                   <div key={`dot-${i}`} className="absolute w-1 h-1 bg-red-600 rounded-full" style={{ top: -0.5, left: '50%', transform: `rotate(${i * 90}deg) translateY(${radius}px)` }} />
-                ))}
+            {/* Background Large Text (Parallax Layer 1) */}
+            <motion.div 
+              style={{ y: y1 }}
+              className="absolute inset-0 flex flex-col justify-around pointer-events-none opacity-[0.03]"
+            >
+              <div className="text-[20vw] font-black text-white leading-none whitespace-nowrap -ml-[20%] uppercase tracking-tighter">INTELLIGENT</div>
+              <div className="text-[20vw] font-black text-white leading-none whitespace-nowrap ml-[10%] uppercase tracking-tighter">ECOSYSTEMS</div>
+              <div className="text-[20vw] font-black text-white leading-none whitespace-nowrap -ml-[10%] uppercase tracking-tighter">FOUNDATION</div>
+            </motion.div>
 
-                {/* Tech items */}
-                {Array.from({ length: itemsInRing }).map((_, itemIndex) => {
-                  const techIndex = (ringLevel * 4 + itemIndex) % technologies.length;
-                  const angle = (itemIndex / itemsInRing) * 360;
-                  
-                  return (
-                    <motion.div
-                      key={itemIndex}
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-                      style={{
-                        transform: `rotate(${angle}deg) translateY(-${radius}px) rotate(-${angle}deg)`,
-                      }}
-                      animate={{ rotate: ringLevel % 2 === 0 ? -360 : 360 }} // Counter rotate to keep text upright
-                      transition={{ duration, repeat: Infinity, ease: "linear" }}
-                    >
-                      <div className="px-4 py-2 glass-panel text-xs font-mono tracking-widest text-[#A3A3A3] whitespace-nowrap border-white/10 opacity-80 hover:opacity-100 hover:text-white hover:border-red-600/50 hover:shadow-[0_0_15px_rgba(220,38,38,0.3)] transition-all cursor-crosshair">
-                        {technologies[techIndex]}
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            );
-          })}
+            {/* Main Content (Parallax Layer 2) */}
+            <motion.div 
+              style={{ y: y2, scale }}
+              className="max-w-4xl mx-auto text-center"
+            >
+              <div className="inline-block px-3 py-1 border border-red-600/30 rounded-full bg-red-600/5 mb-8">
+                <span className="text-[10px] font-mono tracking-[0.4em] text-red-500 uppercase">Tech Stack v4.0</span>
+              </div>
+              
+              <h2 className="text-6xl md:text-8xl lg:text-9xl font-display font-black text-white uppercase tracking-tighter leading-[0.85] mb-12">
+                The Power <br /> 
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-white">
+                    Behind the Core
+                </span>
+              </h2>
+
+              <p className="text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
+                Utilizing the most advanced frameworks and neural architectures to build systems that don&apos;t just scale—they transcend.
+              </p>
+            </motion.div>
+
+          </div>
+        </motion.div>
+
+        {/* Floating Interactive Elements */}
+        <div className="absolute bottom-12 left-12 z-20 hidden lg:block">
+            <div className="flex items-center space-x-4 group cursor-pointer">
+                <div className="w-12 h-[1px] bg-red-600 group-hover:w-20 transition-all duration-500" />
+                <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Scroll to deconstruct</span>
+            </div>
         </div>
+
+        <div className="absolute top-1/2 right-12 -translate-y-1/2 z-20 hidden lg:flex flex-col gap-8">
+            {["SYSTEMS", "NETWORK", "CLOUD", "AI"].map((label, i) => (
+                <div key={i} className="flex items-center space-x-4 justify-end">
+                    <span className="text-[9px] font-mono text-gray-600 uppercase tracking-widest">{label}</span>
+                    <div className="w-1.5 h-1.5 rounded-full border border-red-600/50" />
+                </div>
+            ))}
+        </div>
+
       </div>
+
+      {/* Transitional Overlay */}
+      <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black to-transparent pointer-events-none z-30" />
     </section>
   );
 }
