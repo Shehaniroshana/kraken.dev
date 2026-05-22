@@ -28,10 +28,10 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <VisionSection />
-        <ServicesSection />
-        <ShowcaseSection />
-        <TechStackSection />
         <StatsSection />
+        <ServicesSection />
+        <TechStackSection />
+        <ShowcaseSection />
         <ContactSection />
         <Footer />
       </main>

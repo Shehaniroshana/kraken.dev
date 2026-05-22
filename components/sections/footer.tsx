@@ -26,8 +26,8 @@ export function Footer() {
             <div>
                 <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Intel</h4>
                 <ul className="space-y-4">
-                    <li><a href="#" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Manifesto</a></li>
-                    <li><a href="#" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Architecture</a></li>
+                    <li><a href="/manifesto" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Manifesto</a></li>
+                    <li><a href="/architecture" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Architecture</a></li>
                     <li><a href="#" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Career</a></li>
                 </ul>
             </div>
@@ -35,9 +35,9 @@ export function Footer() {
             <div>
                 <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Directives</h4>
                 <ul className="space-y-4">
-                    <li><a href="#" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Privacy Grid</a></li>
-                    <li><a href="#" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Terms of Service</a></li>
-                    <li><a href="#" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Security Protocol</a></li>
+                    <li><a href="/privacy" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Privacy Grid</a></li>
+                    <li><a href="/terms" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Terms of Service</a></li>
+                    <li><a href="/security" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Security Protocol</a></li>
                 </ul>
             </div>
         </div>
