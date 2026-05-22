@@ -1,0 +1,81 @@
+"use client";
+
+import { useRef, useEffect, useState } from "react";
+import { motion, useInView } from "motion/react";
+
+const stats = [
+  { value: "100", suffix: "%", label: "Future Focused" },
+  { value: "3.2", suffix: "m+", label: "Queries Per Second" },
+  { value: "0", suffix: ".01ms", label: "System Latency" },
+  { value: "256", suffix: "bit", label: "Quantum Encryption" },
+];
+
+function AnimatedCounter({ value, suffix }: { value: string, suffix: string }) {
+    const [count, setCount] = useState("0");
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+    useEffect(() => {
+        if (isInView) {
+            let start = 0;
+            const target = parseFloat(value);
+            const isFloat = value.includes(".");
+            const duration = 2000;
+            const startTime = performance.now();
+
+            const updateCounter = (currentTime: number) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // easeOutQuart
+                const ease = 1 - Math.pow(1 - progress, 4);
+                
+                const currentVal = target * ease;
+                
+                setCount(isFloat ? currentVal.toFixed(2) : Math.floor(currentVal).toString());
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                }
+            };
+
+            requestAnimationFrame(updateCounter);
+        }
+    }, [isInView, value]);
+
+    return (
+        <span ref={ref} className="text-5xl md:text-7xl font-display font-black tracking-tighter text-white">
+            {count}
+            <span className="text-3xl md:text-5xl text-red-500 font-bold ml-1">{suffix}</span>
+        </span>
+    );
+}
+
+export function StatsSection() {
+  return (
+    <section className="relative py-32 bg-black z-20">
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a0a] to-black opacity-80 pointer-events-none"></div>
+      
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-center divider-x divider-white/5">
+              {stats.map((stat, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: i * 0.1 }}
+                    className="flex flex-col items-center justify-center relative p-6"
+                  >
+                        {i !== 0 && (
+                            <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-[1px] h-3/4 bg-gradient-to-b from-transparent via-red-500/20 to-transparent"></div>
+                        )}
+                        <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                        <span className="mt-4 text-xs font-mono uppercase tracking-[0.2em] text-gray-500">{stat.label}</span>
+                  </motion.div>
+              ))}
+          </div>
+      </div>
+    </section>
+  );
+}
