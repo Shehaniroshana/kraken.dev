@@ -39,7 +39,7 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.5 }}
             className="max-w-xl text-gray-400 leading-relaxed text-sm uppercase tracking-wide opacity-80"
           >
-            KRAKEN builds scalable enterprise systems, immersive digital experiences, and next-generation AI-powered platforms.
+            KRAKEN builds scalable software systems, modern digital platforms, AI-powered solutions, and immersive user experiences designed for the future.
           </motion.p>
           
           <motion.div 

@@ -38,20 +38,20 @@ export function AboutSection() {
           </div>
           
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white leading-tight uppercase tracking-tighter mix-blend-difference mb-12">
-            KRAKEN EXISTS TO ENGINEER <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-900">IMMERSIVE, SCALABLE, AND FUTURE-DRIVEN</span> SOFTWARE EXPERIENCES.
+            KRAKEN REPRESENTS <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-900">GROWTH, TRUST, AND THE POWER</span> OF SHARED VISION.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="glass-panel p-8 border-l-2 border-l-red-600 bg-black/40 backdrop-blur-xl">
-              <h3 className="text-sm font-mono text-white mb-4 uppercase tracking-widest">Execute / 01</h3>
+              <h3 className="text-sm font-mono text-white mb-4 uppercase tracking-widest">The Dream / 01</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                We do not build templates. We engineer raw digital power. Our architectures are crafted from the ground up for maximum throughput, absolute security, and zero compromises.
+                Founded by two lifelong friends since Grade 1, our journey began with different ambitions—one for wood carving and precision, the other for building ideas as a businessman. After separate paths, these dreams evolved into a shared mastery of technology and strategy.
               </p>
             </div>
             <div className="glass-panel p-8 border-l-2 border-l-red-600 bg-black/40 backdrop-blur-xl">
-              <h3 className="text-sm font-mono text-white mb-4 uppercase tracking-widest">Design / 02</h3>
+              <h3 className="text-sm font-mono text-white mb-4 uppercase tracking-widest">The Synergy / 02</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Every interface is a cinematic experience. We blend WebGL, interactive physics, and hyper-optimized DOM manipulations to create interfaces that leave a lasting impression.
+                We merge backend engineering and system architecture with strategic digital marketing. KRAKEN represents the belief that different skills and different journeys can come together to build something powerful, immersive, and designed for the future.
               </p>
             </div>
           </div>

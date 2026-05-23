@@ -16,8 +16,8 @@ export default function ManifestoPage() {
           id="manifesto"
           title="The Core Manifesto"
           subtitle="Philosophical Foundation"
-          description="We believe in the transcendence of digital interaction. Our goal is to build autonomous, neural-linked ecosystems that evolve with human intent, creating a seamless bridge between thought and execution."
-          tags={["Autonomy", "Neural", "Transcendence", "Evolution"]}
+          description="KRAKEN is a shared vision built on creativity, engineering, and strategy. We believe that different skills and different journeys can come together to build something powerful—creating scalable software and immersive experiences designed for the future."
+          tags={["Creativity", "Engineering", "Strategy", "Innovation"]}
           background={<Suspense fallback={null}><ManifestoNeural /></Suspense>}
         />
       </main>

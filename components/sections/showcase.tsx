@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -131,6 +131,16 @@ function ProjectVisualizer({ type }: { type: string }) {
 export function ShowcaseSection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: triggerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const titleY = useTransform(smoothProgress, [0, 1], ["18%", "-18%"]);
+  const titleOpacity = useTransform(smoothProgress, [0, 0.15, 0.85, 1], [0.85, 1, 1, 0.85]);
+  const paragraphY = useTransform(smoothProgress, [0, 1], ["8%", "-8%"]);
+  const paragraphOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0.7, 1, 1, 0.7]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -190,15 +200,23 @@ export function ShowcaseSection() {
                                transition={{ delay: 0.3 }}
                              >
                                <span className="text-[10px] font-mono text-red-500 tracking-[0.3em] uppercase mb-4 block">{item.category}</span>
-                               <h3 className="text-5xl md:text-7xl lg:text-8xl font-display font-black text-white uppercase tracking-tighter leading-none mb-6">
+                               <motion.h3
+                                 style={{ y: titleY, opacity: titleOpacity }}
+                                 className="text-5xl md:text-7xl lg:text-8xl font-display font-black text-white uppercase tracking-tighter leading-none mb-6"
+                               >
                                  {item.title}
-                               </h3>
+                               </motion.h3>
                                
                                <div className="flex items-center space-x-6">
                                   <button className="px-6 py-2 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all">
                                     Analyze Case
                                   </button>
-                                  <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest">[ {item.imageInfo} ]</p>
+                                  <motion.p
+                                    style={{ y: paragraphY, opacity: paragraphOpacity }}
+                                    className="text-[10px] font-mono text-gray-600 uppercase tracking-widest"
+                                  >
+                                    [ {item.imageInfo} ]
+                                  </motion.p>
                                </div>
                              </motion.div>
                         </div>

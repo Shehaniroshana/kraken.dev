@@ -16,8 +16,8 @@ export default function ArchitecturePage() {
           id="architecture"
           title="System Architecture"
           subtitle="Structural Integrity"
-          description="Engineered for absolute performance. Our architecture utilizes a distributed, high-throughput core optimized for sub-millisecond latency and quantum-grade security protocols."
-          tags={["Scalability", "Latency", "Security", "Distributed"]}
+          description="Engineered for maximum scalability and precision. We build modern digital platforms and software systems designed to handle complex logic while delivering immersive, future-driven user experiences."
+          tags={["Scalable", "Modern", "Immersive", "Precise"]}
           background={<Suspense fallback={null}><ArchitectureGrid /></Suspense>}
         />
       </main>

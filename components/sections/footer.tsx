@@ -60,7 +60,7 @@ export function Footer() {
                     </div>
                 </div>
                 <p className="text-gray-500 font-mono text-xs uppercase tracking-widest max-w-xs leading-relaxed">
-                    Engineering scalable enterprise systems and next-generation AI platforms.
+                    Building scalable software systems, modern digital platforms, and immersive user experiences.
                 </p>
 
                 <div className="mt-12">

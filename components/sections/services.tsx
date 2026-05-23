@@ -6,39 +6,39 @@ import { Server, Brain, Globe, Smartphone, Cloud, PenTool } from "lucide-react";
 
 const services = [
   {
-    title: "Enterprise Software",
+    title: "Scalable Software",
     category: "01 / Architecture",
-    description: "Highly scalable, distributed architectures designed for mission-critical operations with absolute reliability.",
+    description: "Robust software systems designed from the ground up to handle massive scale and mission-critical logic.",
     icon: Server,
   },
   {
     title: "AI Solutions",
     category: "02 / Intelligence",
-    description: "Deep learning models and autonomous decision engines tailored for advanced behavioral analytics.",
+    description: "Next-generation AI-powered platforms tailored for advanced automation and predictive analytics.",
     icon: Brain,
   },
   {
-    title: "Web Applications",
+    title: "Modern Platforms",
     category: "03 / Digital Presence",
-    description: "High-performance, cinematic front-ends engineered for extreme speed and conversion.",
+    description: "High-performance digital platforms engineered for extreme speed and global connectivity.",
     icon: Globe,
   },
   {
-    title: "Mobile Platforms",
+    title: "Mobile Ecosystems",
     category: "04 / Ubiquity",
-    description: "Native and cross-platform mobile experiences leveraging edge computing for zero latency.",
+    description: "Immersive mobile experiences that bridge the gap between user intent and digital execution.",
     icon: Smartphone,
   },
   {
-    title: "Cloud Infrastructure",
-    category: "05 / Scaling",
-    description: "Global cloud deployment strategies with automated threat mitigation and packet inspection.",
+    title: "Strategic Growth",
+    category: "05 / Strategy",
+    description: "Data-driven digital marketing and branding strategies designed for long-term growth and connection.",
     icon: Cloud,
   },
   {
-    title: "UI/UX Engineering",
+    title: "Immersive UX",
     category: "06 / Experience",
-    description: "Military-precision interfaces combining WebGL logic with intuitive, aggressive design patterns.",
+    description: "Future-driven user experiences combining technical precision with cinematic digital design.",
     icon: PenTool,
   }
 ];
