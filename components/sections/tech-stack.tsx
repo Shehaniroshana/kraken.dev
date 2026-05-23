@@ -4,6 +4,7 @@ import { useRef, Suspense } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { Canvas } from "@react-three/fiber";
 import { TechCloud } from "@/components/three/tech-cloud";
+import SoftAurora from "@/components/ui/soft-aurora/SoftAurora";
 
 export function TechStackSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,8 +29,18 @@ export function TechStackSection() {
     >
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         
+        {/* Background Aurora Layer */}
+        <div className="absolute inset-0 z-0 opacity-50">
+          <SoftAurora 
+            speed={0.4}
+            color1="#ff0000"
+            color2="#440000"
+            brightness={0.8}
+          />
+        </div>
+
         {/* 3D Interactive Layer */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-1">
           <Canvas camera={{ position: [0, 0, 15], fov: 45 }}>
             <Suspense fallback={null}>
               <TechCloud />

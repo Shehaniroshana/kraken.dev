@@ -16,7 +16,16 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**', 
       },
+      {
+        protocol: 'https',
+        hostname: '*.ngrok-free.app',
+      },
     ],
+  },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['*.ngrok-free.app'],
+    },
   },
   output: 'standalone',
   transpilePackages: ['motion'],
