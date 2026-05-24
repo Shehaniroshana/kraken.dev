@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { Server, Brain, Globe, Smartphone, BarChart3, Fingerprint } from "lucide-react";
 
@@ -128,6 +128,7 @@ function ServiceCard({ service, index, globalRotation }: { service: typeof servi
 
 export function ServicesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -137,6 +138,10 @@ export function ServicesSection() {
     useTransform(scrollYProgress, [0, 1], [0, 360]),
     { stiffness: 60, damping: 25, restDelta: 0.001 }
   );
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section id="services" ref={containerRef} className="relative h-[500vh]">
@@ -160,7 +165,7 @@ export function ServicesSection() {
 
         <div className="relative w-full h-[600px] flex items-center justify-center perspective-[2000px]">
           <div className="relative w-full h-full flex items-center justify-center preserve-3d">
-            {services.map((s, i) => (
+            {mounted && services.map((s, i) => (
               <ServiceCard 
                 key={s.title} 
                 service={s} 

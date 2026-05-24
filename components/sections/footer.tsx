@@ -1,12 +1,15 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
 import Image from "next/image";
 import logoImg from "@/assets/logo.png";
+import { useMemo, useRef } from "react";
 import Hyperspeed from "@/components/ui/hyperspeed/Hyperspeed";
-import { useMemo } from "react";
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(footerRef, { once: false, margin: "200px 0px 200px 0px" });
+
   const hyperspeedOptions = useMemo(() => ({
     distortion: 'turbulentDistortion',
     length: 400,
@@ -44,10 +47,10 @@ export function Footer() {
   }), []);
 
   return (
-    <footer className="py-16 border-t border-[var(--glass-border)] relative z-20 bg-black overflow-hidden min-h-[600px] flex items-center">
+    <footer ref={footerRef} className="py-16 border-t border-[var(--glass-border)] relative z-20 bg-black overflow-hidden min-h-[600px] flex items-center">
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0 opacity-40">
-        <Hyperspeed effectOptions={hyperspeedOptions} />
+        {isInView && <Hyperspeed effectOptions={hyperspeedOptions} />}
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
@@ -56,7 +59,7 @@ export function Footer() {
                 {/* Zero-height container for absolute logo to prevent vertical push */}
                 <div className="h-8 mb-4 relative">
                     <div className="absolute -top-8 -left-2 w-72 h-28">
-                        <Image src={logoImg} alt="Kraken Logo" fill className="object-contain object-left" />
+                        <Image src={logoImg} alt="Kraken Logo" fill sizes="288px" className="object-contain object-left" />
                     </div>
                 </div>
                 <p className="text-gray-500 font-mono text-xs uppercase tracking-widest max-w-xs leading-relaxed">

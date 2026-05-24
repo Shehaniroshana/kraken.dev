@@ -51,7 +51,8 @@ export function Navbar() {
               <Image 
                 src={logoImg} 
                 alt="Kraken Logo" 
-                fill 
+                fill
+                sizes="288px"
                 priority
                 className="object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.4)] object-left" 
               />

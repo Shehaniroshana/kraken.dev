@@ -28,7 +28,6 @@ function TechNode({ name, position, index }: { name: string, position: [number, 
                     ref={textRef}
                     fontSize={0.4}
                     color="white"
-                    font="/fonts/font.woff" // Assuming a high-end font exists or using default
                     anchorX="center"
                     anchorY="middle"
                     outlineWidth={0.01}

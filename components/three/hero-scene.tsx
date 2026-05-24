@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useMemo, Suspense } from 'react';
+import { useRef, useMemo, Suspense, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, Environment } from '@react-three/drei';
-import { EffectComposer, Bloom, ChromaticAberration, Noise, Vignette } from '@react-three/postprocessing';
-import { BlendFunction } from 'postprocessing';
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
-import { Vector2 } from 'three';
+
+// Shared scroll cache to avoid reading window.scrollY every frame
+let cachedScrollY = 0;
 
 function InnerCore() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -40,8 +41,7 @@ function DataRings() {
   
   useFrame((state, delta) => {
     if (ringsRef.current) {
-      const scrollY = window.scrollY;
-      const speedMultiplier = 1 + (scrollY * 0.005);
+      const speedMultiplier = 1 + (cachedScrollY * 0.005);
       
       // Opposite rotation for rings to create a complex orbital mechanic look
       ringsRef.current.children.forEach((ring, index) => {
@@ -51,7 +51,7 @@ function DataRings() {
       });
       
       // Scale out based on scroll
-      const scale = 1 + scrollY * 0.002;
+      const scale = 1 + cachedScrollY * 0.002;
       ringsRef.current.scale.lerp(new THREE.Vector3(scale, scale, scale), 0.1);
     }
   });
@@ -60,7 +60,7 @@ function DataRings() {
     <group ref={ringsRef}>
       {[2.5, 3.2, 4.0].map((radius, i) => (
         <mesh key={i} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[radius, 0.01, 64, 100]} />
+          <torusGeometry args={[radius, 0.01, 16, 64]} />
           <meshStandardMaterial 
              color="#DC2626" 
              emissive="#DC2626" 
@@ -81,21 +81,20 @@ function Core() {
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
 
   useFrame((state) => {
-    const scrollY = window.scrollY;
     const time = state.clock.elapsedTime;
     
     if (wireframeRef.current && solidRef.current) {
       // Base rotation + Scroll rotation
-      wireframeRef.current.rotation.x = time * 0.2 + scrollY * 0.001;
-      wireframeRef.current.rotation.y = time * 0.3 + scrollY * 0.0015;
+      wireframeRef.current.rotation.x = time * 0.2 + cachedScrollY * 0.001;
+      wireframeRef.current.rotation.y = time * 0.3 + cachedScrollY * 0.0015;
       
-      solidRef.current.rotation.x = -time * 0.1 - scrollY * 0.0005;
-      solidRef.current.rotation.y = -time * 0.2 - scrollY * 0.001;
+      solidRef.current.rotation.x = -time * 0.1 - cachedScrollY * 0.0005;
+      solidRef.current.rotation.y = -time * 0.2 - cachedScrollY * 0.001;
 
       // Scroll-driven Exploding / Separation Effect
-      const separationX = THREE.MathUtils.lerp(0, 3, Math.min(scrollY / 1500, 1));
-      const separationY = THREE.MathUtils.lerp(0, 2, Math.min(scrollY / 1500, 1));
-      const separationZ = THREE.MathUtils.lerp(0, 5, Math.min(scrollY / 1500, 1));
+      const separationX = THREE.MathUtils.lerp(0, 3, Math.min(cachedScrollY / 1500, 1));
+      const separationY = THREE.MathUtils.lerp(0, 2, Math.min(cachedScrollY / 1500, 1));
+      const separationZ = THREE.MathUtils.lerp(0, 5, Math.min(cachedScrollY / 1500, 1));
       
       wireframeRef.current.position.set(
         THREE.MathUtils.lerp(wireframeRef.current.position.x, separationX, 0.1),
@@ -111,7 +110,7 @@ function Core() {
 
       // Heartbeat pulse effect
       const pulse = 1 + Math.sin(time * 3) * 0.05 + Math.sin(time * 4.5) * 0.02;
-      const baseScale = THREE.MathUtils.lerp(1, 1.8, Math.min(scrollY / 2000, 1));
+      const baseScale = THREE.MathUtils.lerp(1, 1.8, Math.min(cachedScrollY / 2000, 1));
       wireframeRef.current.scale.setScalar(baseScale * pulse);
       solidRef.current.scale.setScalar(baseScale * 0.9);
     }
@@ -121,7 +120,7 @@ function Core() {
       materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(
         0.5, 
         4.0, 
-        Math.min(scrollY / 1500, 1)
+        Math.min(cachedScrollY / 1500, 1)
       );
     }
   });
@@ -158,7 +157,7 @@ function Core() {
 }
 
 function Particles() {
-    const particlesCount = 1200;
+    const particlesCount = 500;
     const positions = useMemo(() => {
         const positions = new Float32Array(particlesCount * 3);
         for(let i = 0; i < particlesCount; i++) {
@@ -177,22 +176,20 @@ function Particles() {
 
     useFrame((state, delta) => {
         if (pointsRef.current) {
-            const scrollY = window.scrollY;
-            
             // Warp speed effect on scroll
-            const speedMultiplier = 1 + (scrollY * 0.015);
+            const speedMultiplier = 1 + (cachedScrollY * 0.015);
             
             pointsRef.current.rotation.y += delta * 0.08 * speedMultiplier;
             pointsRef.current.rotation.z = THREE.MathUtils.lerp(
               pointsRef.current.rotation.z,
-              scrollY * 0.0005,
+              cachedScrollY * 0.0005,
               0.1
             );
             
             // Pull particles aggressively towards the viewer
             pointsRef.current.position.z = THREE.MathUtils.lerp(
               pointsRef.current.position.z,
-              scrollY * 0.015,
+              cachedScrollY * 0.015,
               0.1
             );
         }
@@ -213,20 +210,18 @@ function SceneControls() {
   const mouseRef = useRef(new THREE.Vector2(0, 0));
   
   useFrame(() => {
-    const scrollY = window.scrollY;
-    
     // Smoothly track mouse for cinematic parallax
     mouseRef.current.lerp(pointer, 0.05);
     
     // Calculate target positions based on both Scroll and Mouse
-    const targetY = -scrollY * 0.002 + (mouseRef.current.y * 1.5);
+    const targetY = -cachedScrollY * 0.002 + (mouseRef.current.y * 1.5);
     const targetX = (mouseRef.current.x * 1.5);
     
     camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.1);
     camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetX, 0.1);
     
     // Subtle tilt to "look at" the center based on mouse
-    camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, scrollY * 0.0002 + (mouseRef.current.y * 0.1), 0.1);
+    camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, cachedScrollY * 0.0002 + (mouseRef.current.y * 0.1), 0.1);
     camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, -mouseRef.current.x * 0.1, 0.1);
   });
   
@@ -249,32 +244,35 @@ function Scene() {
       
       <EffectComposer disableNormalPass multisampling={0}>
         <Bloom 
-          luminanceThreshold={0.15} 
+          luminanceThreshold={0.2} 
           luminanceSmoothing={0.9} 
-          height={300}
-          intensity={2.5}
-          kernelSize={3}
+          height={200}
+          intensity={1.5}
+          kernelSize={2}
         />
-        <Noise opacity={0.04} />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
-        <ChromaticAberration 
-           blendFunction={BlendFunction.NORMAL} 
-           offset={new Vector2(0.005, 0.005)} 
-           radialModulation={true} 
-           modulationOffset={0.6} 
-        />
       </EffectComposer>
     </>
   );
 }
 
 export default function HeroScene() {
+  // Cache scroll position outside of the render loop
+  useEffect(() => {
+    const handleScroll = () => {
+      cachedScrollY = window.scrollY;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas 
         camera={{ position: [0, 0, 12], fov: 45 }}
-        gl={{ antialias: false, preserveDrawingBuffer: true, alpha: true }}
-        dpr={[1, 2]}
+        gl={{ antialias: false, alpha: true, powerPreference: 'high-performance', stencil: false, depth: true }}
+        dpr={[1, 1.5]}
+        frameloop="always"
       >
         <Suspense fallback={null}>
           <Scene />
