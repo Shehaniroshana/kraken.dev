@@ -72,12 +72,13 @@ function Connections({ count }: { count: number }) {
     );
 }
 
+const technologies = [
+    "React", "Next.js", "Three.js", "WebGL", "GSAP", 
+    "PostgreSQL", "Redis", "Docker", "AWS", "TensorFlow",
+    "NestJS", "Spring Boot", "Rust", "Golang", "Kubernetes"
+];
+
 export function TechCloud() {
-    const technologies = [
-        "React", "Next.js", "Three.js", "WebGL", "GSAP", 
-        "PostgreSQL", "Redis", "Docker", "AWS", "TensorFlow",
-        "NestJS", "Spring Boot", "Rust", "Golang", "Kubernetes"
-    ];
 
     const nodes = useMemo(() => {
         return technologies.map((name, i) => {

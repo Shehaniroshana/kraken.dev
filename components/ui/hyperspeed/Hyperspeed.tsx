@@ -517,6 +517,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }: { effectOptions?
       }
 
       init() {
+        if (this.disposed) return;
         if (!this.renderer || !this.renderer.getContext()) return;
         this.initPasses();
         const options = this.options;
@@ -1212,7 +1213,9 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }: { effectOptions?
 
     const myApp = new App(container, options);
     appRef.current = myApp;
-    myApp.loadAssets().then(myApp.init);
+    myApp.loadAssets().then(() => {
+      if (!myApp.disposed) myApp.init();
+    });
 
     return () => {
       if (appRef.current) {

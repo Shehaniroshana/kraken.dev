@@ -92,7 +92,7 @@ function ServiceCard({ service, index, globalRotation }: { service: typeof servi
                         <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                         SYS.ACTIVE
                     </div>
-                    <div className="mt-1">0{index + 1} // {service.tag}</div>
+                    <div className="mt-1">0{index + 1} {"//"} {service.tag}</div>
                 </div>
             </div>
 

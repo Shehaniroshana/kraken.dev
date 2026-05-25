@@ -63,7 +63,7 @@ export function ContactSection() {
                 Contact Us
               </h2>
               <h3 className="text-5xl md:text-6xl font-display font-black text-white uppercase tracking-tighter mb-8 leading-none">
-                Let's Build The <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-900">Future Together</span>
+                Let&apos;s Build The <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-900">Future Together</span>
               </h3>
               <p className="text-gray-400 font-mono text-xs leading-relaxed mb-10 max-w-md uppercase tracking-wider">
                 Partner with our engineering team to transform your vision into a high-performance digital reality. We are ready to discuss your next breakthrough project.
