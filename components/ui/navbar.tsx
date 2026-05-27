@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import logoImg from "@/assets/logo.png";
+import iconImg from "@/app/icon.png";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Target, Zap, Code2, Mail, Shield } from "lucide-react";
 
@@ -68,15 +69,26 @@ export function Navbar() {
             <div className="w-64 h-1" />
             
             {/* Absolute Logo */}
-            <div className="absolute left-6 top-1/2 -translate-y-1/2 w-72 h-28 group-hover:scale-105 transition-transform duration-300">
-              <Image 
-                src={logoImg} 
-                alt="Kraken Logo" 
-                fill
-                sizes="288px"
-                priority
-                className="object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.4)] object-left" 
-              />
+            <div className="absolute left-6 top-1/2 -translate-y-1/2 flex items-center group-hover:scale-105 transition-transform duration-300">
+              <div className="relative w-14 h-14">
+                <Image 
+                  src={iconImg} 
+                  alt="Kraken Icon" 
+                  fill
+                  sizes="56px"
+                  className="object-contain drop-shadow-[0_0_12px_rgba(220,38,38,0.6)]"
+                />
+              </div>
+              <div className="relative w-64 h-24 -ml-2">
+                <Image 
+                  src={logoImg} 
+                  alt="Kraken Logo" 
+                  fill
+                  sizes="288px"
+                  priority
+                  className="object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.4)] object-left" 
+                />
+              </div>
             </div>
           </a>
           

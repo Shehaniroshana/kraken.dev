@@ -3,6 +3,7 @@
 import { motion, useInView } from "motion/react";
 import Image from "next/image";
 import logoImg from "@/assets/logo.png";
+import iconImg from "@/app/icon.png";
 import { useMemo, useRef } from "react";
 import Hyperspeed from "@/components/ui/hyperspeed/Hyperspeed";
 import { Github, Twitter, Facebook, Linkedin } from "lucide-react";
@@ -74,8 +75,19 @@ export function Footer() {
             <div className="lg:col-span-2 relative">
                 {/* Zero-height container for absolute logo to prevent vertical push */}
                 <div className="h-20 mb-4 relative">
-                    <div className="absolute -top-8 -left-2 w-72 h-28">
-                        <Image src={logoImg} alt="Kraken Logo" fill sizes="288px" className="object-contain object-left" />
+                    <div className="absolute -top-8 -left-2 flex items-center">
+                        <div className="relative w-14 h-14">
+                            <Image 
+                                src={iconImg} 
+                                alt="Kraken Icon" 
+                                fill
+                                sizes="56px"
+                                className="object-contain drop-shadow-[0_0_12px_rgba(220,38,38,0.6)]"
+                            />
+                        </div>
+                        <div className="relative w-72 h-28 -ml-2">
+                            <Image src={logoImg} alt="Kraken Logo" fill sizes="288px" className="object-contain object-left" />
+                        </div>
                     </div>
                 </div>
                 <p className="text-gray-500 font-mono text-xs uppercase tracking-widest max-w-xs leading-relaxed">
