@@ -5,6 +5,22 @@ import Image from "next/image";
 import logoImg from "@/assets/logo.png";
 import { useMemo, useRef } from "react";
 import Hyperspeed from "@/components/ui/hyperspeed/Hyperspeed";
+import { Github, Twitter, Facebook, Linkedin } from "lucide-react";
+
+const TikTok = ({ size = 18 }: { size?: number }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 export function Footer() {
   const footerRef = useRef<HTMLElement>(null);
@@ -57,16 +73,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             <div className="lg:col-span-2 relative">
                 {/* Zero-height container for absolute logo to prevent vertical push */}
-                <div className="h-8 mb-4 relative">
+                <div className="h-20 mb-4 relative">
                     <div className="absolute -top-8 -left-2 w-72 h-28">
                         <Image src={logoImg} alt="Kraken Logo" fill sizes="288px" className="object-contain object-left" />
                     </div>
                 </div>
                 <p className="text-gray-500 font-mono text-xs uppercase tracking-widest max-w-xs leading-relaxed">
-                    Building scalable software systems, modern digital platforms, and immersive user experiences.
+                    Beyond Code. Beyond Design. Engineering the future of immersive digital experiences.
                 </p>
 
-                <div className="mt-12">
+                <div className="mt-12 group">
                     <h4 className="text-white font-bold uppercase tracking-widest text-[10px] mb-6 flex items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
                         Newsletter Subscription
@@ -105,9 +121,24 @@ export function Footer() {
             </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono text-gray-600">
-          <p>© 2026 KRAKEN ENTERPRISE SYSTEMS. ALL PROTOCOLS ACTIVE.</p>
-          <div className="flex items-center gap-2 mt-4 md:mt-0">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex-1 hidden md:flex justify-start">
+            <p className="text-[10px] font-mono text-gray-600">© 2026 KRAKEN ENTERPRISE SYSTEMS. ALL PROTOCOLS ACTIVE.</p>
+          </div>
+
+          <div className="flex justify-center gap-6 order-1 md:order-2">
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><Github size={18} /></a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><Twitter size={18} /></a>
+            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><Facebook size={18} /></a>
+            <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><TikTok size={18} /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><Linkedin size={18} /></a>
+          </div>
+
+          <div className="flex md:hidden order-2">
+            <p className="text-[10px] font-mono text-gray-600">© 2026 KRAKEN ENTERPRISE SYSTEMS. ALL PROTOCOLS ACTIVE.</p>
+          </div>
+
+          <div className="flex-1 flex justify-center md:justify-end items-center gap-2 text-[10px] font-mono text-gray-600 order-3">
              <div className="w-2 h-2 rounded-full bg-[var(--color-red)] animate-ping" />
              <span>SECURE NODE 190.286.21.89</span>
           </div>

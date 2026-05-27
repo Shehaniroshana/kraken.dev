@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import logoImg from "@/assets/logo.png";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Target, Zap, Code2, Mail } from "lucide-react";
+import { Target, Zap, Code2, Mail, Shield } from "lucide-react";
 
 const navLinks = [
   { href: "#vision", label: "Vision", Icon: Target },
+  { href: "#why-us", label: "Why Us", Icon: Shield },
   { href: "#services", label: "Services", Icon: Zap },
   { href: "#tech", label: "Technology", Icon: Code2 },
   { href: "#contact", label: "Contact", Icon: Mail },
@@ -17,13 +18,33 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
   const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
+
+      const sections = navLinks.map(link => link.href.substring(1));
+      let current = "";
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // Adjust threshold based on your layout needs
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            current = section;
+            break;
+          }
+        }
+      }
+      if (!current && window.scrollY < 100) {
+        current = "hero"; // Or whatever top section ID is
+      }
+      setActiveSection(current);
     };
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -61,12 +82,19 @@ export function Navbar() {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8 text-xs font-bold tracking-[0.2em] uppercase text-gray-400">
-            {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="hover:text-white transition-colors relative group">
-                {link.label}
-                <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.substring(1);
+              return (
+                <a 
+                  key={link.href} 
+                  href={link.href} 
+                  className={`transition-colors relative group ${isActive ? "text-white" : "hover:text-white"}`}
+                >
+                  {link.label}
+                  <span className={`absolute -bottom-2 left-0 h-[2px] bg-red-600 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}></span>
+                </a>
+              );
+            })}
           </nav>
           
           <button className="hidden md:inline-block px-6 py-2 border border-red-600/30 bg-red-600/10 text-red-500 text-xs font-bold uppercase tracking-widest hover:bg-red-600 hover:text-white hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] transition-all">
@@ -133,6 +161,7 @@ export function Navbar() {
                   <nav className="space-y-2">
                     {navLinks.map((link, index) => {
                       const IconComponent = link.Icon;
+                      const isActive = activeSection === link.href.substring(1);
                       return (
                         <motion.a
                           key={link.href}
@@ -142,18 +171,20 @@ export function Navbar() {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.08, duration: 0.4 }}
                           whileHover={{ x: 8 }}
-                          className="group flex items-center gap-4 px-6 py-4 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-red-600/20 hover:to-red-600/5 border border-transparent hover:border-red-600/30"
+                          className={`group flex items-center gap-4 px-6 py-4 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-red-600/20 hover:to-red-600/5 hover:border-red-600/30 ${
+                            isActive ? "bg-gradient-to-r from-red-600/20 to-red-600/5 border-red-600/30" : "border-transparent"
+                          } border`}
                         >
-                          <IconComponent className="w-6 h-6 text-red-500 group-hover:text-red-400 group-hover:scale-110 transition-all duration-300" />
+                          <IconComponent className={`w-6 h-6 transition-all duration-300 group-hover:text-red-400 group-hover:scale-110 ${isActive ? "text-red-400" : "text-red-500"}`} />
                           <div className="flex-1">
-                            <span className="text-sm font-bold tracking-[0.15em] uppercase text-gray-300 group-hover:text-red-400 transition-colors duration-300">
+                            <span className={`text-sm font-bold tracking-[0.15em] uppercase transition-colors duration-300 group-hover:text-red-400 ${isActive ? "text-red-400" : "text-gray-300"}`}>
                               {link.label}
                             </span>
                           </div>
                           <motion.span
                             initial={{ opacity: 0, x: -10 }}
                             whileHover={{ opacity: 1, x: 0 }}
-                            className="text-red-600 group-hover:block hidden"
+                            className={`text-red-600 ${isActive ? "block" : "hidden group-hover:block"}`}
                           >
                             →
                           </motion.span>

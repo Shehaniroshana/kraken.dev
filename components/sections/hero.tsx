@@ -21,7 +21,7 @@ export function HeroSection() {
              className="flex items-center space-x-4 mb-4"
           >
             <div className="h-[1px] w-12 bg-red-600"></div>
-            <span className="text-red-500 text-xs font-bold uppercase tracking-[0.3em]">Engineering the Future of Digital Power</span>
+            <span className="text-red-500 text-xs font-bold uppercase tracking-[0.3em]">Engineering the future of immersive digital experiences</span>
           </motion.div>
 
           <motion.h1 
@@ -39,7 +39,7 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.5 }}
             className="max-w-xl text-gray-400 leading-relaxed text-sm uppercase tracking-wide opacity-80"
           >
-            KRAKEN builds scalable software systems, modern digital platforms, AI-powered solutions, and immersive user experiences designed for the future.
+            Beyond Code. Beyond Design. Experience the Next Dimension.
           </motion.p>
           
           <motion.div 

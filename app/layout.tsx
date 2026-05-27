@@ -18,8 +18,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'KRAKEN | Engineering the Future of Digital Power',
-  description: 'KRAKEN builds scalable enterprise systems, immersive interfaces, and next-generation AI-powered platforms.',
+  title: 'KRAKEN | Beyond Code. Beyond Design.',
+  description: 'Experience the Next Dimension. KRAKEN engineers visually striking and deeply interactive digital experiences that redefine how users engage with technology.',
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {

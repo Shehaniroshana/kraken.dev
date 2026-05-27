@@ -66,7 +66,7 @@ export function VisionSection() {
                   className="space-y-8"
                 >
                   <p className="text-lg md:text-xl text-gray-400 font-light leading-relaxed border-l-2 border-red-600 pl-6">
-                    At its core, KRAKEN is driven by the same two friends who once dreamed about building something meaningful together—now engineering scalable software systems and immersive digital experiences for the future.
+                    To create visually striking and deeply interactive digital experiences that redefine how users engage with technology.
                   </p>
                   
                   <div className="grid grid-cols-2 gap-4">

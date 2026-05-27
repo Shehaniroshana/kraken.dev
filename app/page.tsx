@@ -8,6 +8,7 @@ import { VisionSection } from "@/components/sections/vision";
 import { TechStackSection } from "@/components/sections/tech-stack";
 import { ShowcaseSection } from "@/components/sections/showcase";
 import { StatsSection } from "@/components/sections/stats";
+import { WhyUsSection } from "@/components/sections/why-us";
 import { ContactSection } from "@/components/sections/contact";
 import { Footer } from "@/components/sections/footer";
 import { SceneWrapper } from "@/components/three/scene-wrapper";
@@ -29,6 +30,7 @@ export default function Home() {
         <AboutSection />
         <VisionSection />
         <StatsSection />
+        <WhyUsSection />
         <ServicesSection />
         <TechStackSection />
         <ShowcaseSection />
@@ -38,3 +40,4 @@ export default function Home() {
     </SmoothScrolling>
   );
 }
+
