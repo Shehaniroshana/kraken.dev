@@ -108,9 +108,9 @@ function ReasonCard({
                 <span className="w-1 h-1 rounded-full bg-red-500/50 group-hover:bg-red-500 group-hover:animate-pulse transition-all duration-500" />
                 {reason.tag}
               </div>
-              <div className="text-[9px] text-white/10 mt-0.5">
-                0{index + 1} // MODULE
-              </div>
+               <div className="text-[9px] text-white/10 mt-0.5">
+                 0{index + 1}
+               </div>
             </div>
           </div>
 
