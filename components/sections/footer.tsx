@@ -1,8 +1,7 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
+import { useInView } from "motion/react";
 import Image from "next/image";
-import logoImg from "@/assets/logo.png";
 import iconImg from "@/app/icon.png";
 import { useMemo, useRef } from "react";
 import Hyperspeed from "@/components/ui/hyperspeed/Hyperspeed";
@@ -64,30 +63,25 @@ export function Footer() {
   }), []);
 
   return (
-    <footer ref={footerRef} className="py-16 border-t border-[var(--glass-border)] relative z-20 bg-black overflow-hidden min-h-[600px] flex items-center">
+    <footer ref={footerRef} className="pt-8 pb-6 border-t border-[var(--glass-border)] relative z-20 bg-black overflow-hidden">
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0 opacity-40">
         {isInView && <Hyperspeed effectOptions={hyperspeedOptions} />}
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-6">
             <div className="lg:col-span-2 relative">
-                {/* Zero-height container for absolute logo to prevent vertical push */}
-                <div className="h-20 mb-4 relative">
-                    <div className="absolute -top-8 -left-2 flex items-center">
-                        <div className="relative w-14 h-14">
-                            <Image 
-                                src={iconImg} 
-                                alt="Kraken Icon" 
-                                fill
-                                sizes="56px"
-                                className="object-contain drop-shadow-[0_0_12px_rgba(220,38,38,0.6)]"
-                            />
-                        </div>
-                        <div className="relative w-72 h-28 -ml-2">
-                            <Image src={logoImg} alt="Kraken Logo" fill sizes="288px" className="object-contain object-left" />
-                        </div>
+                {/* Icon container (kept small to avoid layout push) */}
+                <div className="relative mb-2">
+                    <div className="relative w-16 h-16">
+                        <Image
+                            src={iconImg}
+                            alt="Kraken Icon"
+                            fill
+                            sizes="64px"
+                            className="object-contain drop-shadow-[0_0_12px_rgba(220,38,38,0.6)]"
+                        />
                     </div>
                 </div>
                 <p className="text-gray-500 font-mono text-xs uppercase tracking-widest max-w-xs leading-relaxed">
