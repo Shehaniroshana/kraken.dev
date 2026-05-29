@@ -5,8 +5,18 @@ import { MagnetButton } from "@/components/ui/magnet-button";
 import dynamic from "next/dynamic";
 
 export function HeroSection() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    window.location.hash = sectionId;
+  };
+
   return (
-    <section id="hero" className="relative min-h-[100svh] w-full flex flex-col p-12 overflow-hidden z-10 pt-32">
+    <section id="hero" className="relative min-h-[100svh] w-full flex flex-col px-6 py-8 md:p-12 overflow-hidden z-10 pt-28 md:pt-32">
       
       {/* Overlay Gradients */}
       <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-dark)] via-transparent to-[var(--bg-dark)] z-10 pointer-events-none" />
@@ -21,7 +31,7 @@ export function HeroSection() {
              className="flex items-center space-x-4 mb-4"
           >
             <div className="h-[1px] w-12 bg-red-600"></div>
-            <span className="text-red-500 text-xs font-bold uppercase tracking-[0.3em]">Engineering the future of immersive digital experiences</span>
+            <span className="text-red-500 text-xs font-bold uppercase tracking-[0.3em]">Grade 1 friends. One shared future.</span>
           </motion.div>
 
           <motion.h1 
@@ -39,7 +49,7 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.5 }}
             className="max-w-xl text-gray-400 leading-relaxed text-sm uppercase tracking-wide opacity-80"
           >
-            Beyond Code. Beyond Design. Experience the Next Dimension.
+            KRAKEN began with two lifelong friends, two childhood dreams, and one vision to build something meaningful together.
           </motion.p>
           
           <motion.div 
@@ -48,10 +58,10 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.8 }}
             className="mt-10 flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6"
           >
-            <MagnetButton variant="primary">
+            <MagnetButton variant="primary" onClick={() => scrollToSection("contact")}>
               Start a Project
             </MagnetButton>
-            <MagnetButton variant="glass">
+            <MagnetButton variant="glass" onClick={() => scrollToSection("vision")}>
               Explore Vision
             </MagnetButton>
           </motion.div>

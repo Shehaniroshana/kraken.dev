@@ -62,19 +62,19 @@ export function Navbar() {
           scrolled ? "bg-black/80 backdrop-blur-lg border-b border-white/5 py-2" : "bg-transparent py-6"
         }`}
       >
-        <div className="container mx-auto px-6 max-w-7xl flex justify-between items-center relative h-12">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl flex justify-between items-center relative h-12">
           <a href="#hero" className="flex items-center group cursor-pointer h-full">
             {/* Spacer to maintain layout */}
-            <div className="w-64 h-1" />
+            <div className="hidden md:block w-64 h-1" />
             
             {/* Absolute Logo */}
-              <div className="absolute left-6 top-1/2 -translate-y-1/2 flex items-center group-hover:scale-105 transition-transform duration-300">
-                <div className="relative w-16 h-16">
+              <div className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 flex items-center group-hover:scale-105 transition-transform duration-300">
+                <div className="relative w-12 h-12 sm:w-16 sm:h-16">
                   <Image
                     src={iconImg}
                     alt="Kraken Icon"
                     fill
-                    sizes="64px"
+                    sizes="(max-width: 640px) 48px, 64px"
                     className="object-contain drop-shadow-[0_0_12px_rgba(220,38,38,0.6)]"
                   />
                 </div>

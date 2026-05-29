@@ -598,7 +598,8 @@ export default function LiquidEther({
         this.line = new THREE.LineSegments(boundaryG, boundaryM);
         this.scene?.add(this.line);
       }
-      update(props: any) {
+      update(...args: any[]) {
+        const props = args[0];
         this.uniforms.dt.value = props.dt;
         if (this.line) this.line.visible = props.isBounce;
         this.uniforms.isBFECC.value = props.BFECC;
@@ -613,7 +614,8 @@ export default function LiquidEther({
         super({ output: simProps.dst });
         this.init(simProps);
       }
-      init(simProps: any) {
+      init(...args: any[]) {
+        const simProps = args[0];
         super.init();
         const mouseG = new THREE.PlaneGeometry(1, 1);
         const mouseM = new THREE.RawShaderMaterial({
@@ -631,7 +633,8 @@ export default function LiquidEther({
         this.mouse = new THREE.Mesh(mouseG, mouseM);
         this.scene?.add(this.mouse);
       }
-      update(props: any) {
+      update(...args: any[]) {
+        const props = args[0];
         const forceX = (Mouse.diff.x / 2) * props.mouse_force;
         const forceY = (Mouse.diff.y / 2) * props.mouse_force;
         const cursorSizeX = props.cursor_size * props.cellScale.x;
@@ -675,7 +678,8 @@ export default function LiquidEther({
         });
         this.init();
       }
-      update(props: any) {
+      update(...args: any[]) {
+        const props = args[0];
         let fbo_in, fbo_out;
         this.uniforms.v.value = props.viscous;
         for (let i = 0; i < props.iterations; i++) {
@@ -712,7 +716,8 @@ export default function LiquidEther({
         });
         this.init();
       }
-      update(props: any) {
+      update(...args: any[]) {
+        const props = args[0];
         this.uniforms.velocity.value = props.vel.texture;
         super.update();
       }
@@ -737,7 +742,8 @@ export default function LiquidEther({
         });
         this.init();
       }
-      update(props: any) {
+      update(...args: any[]) {
+        const props = args[0];
         let p_in, p_out;
         for (let i = 0; i < props.iterations; i++) {
           if (i % 2 === 0) {
@@ -773,7 +779,8 @@ export default function LiquidEther({
         });
         this.init();
       }
-      update(props: any) {
+      update(...args: any[]) {
+        const props = args[0];
         this.uniforms.velocity.value = props.vel.texture;
         this.uniforms.pressure.value = props.pressure.texture;
         super.update();

@@ -198,7 +198,7 @@ function Particles() {
     return (
         <points ref={pointsRef}>
             <bufferGeometry>
-                <bufferAttribute attach="attributes-position" count={particlesCount} array={positions} itemSize={3} />
+          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
             </bufferGeometry>
             <pointsMaterial size={0.06} color="#DC2626" transparent opacity={0.8} sizeAttenuation={true} blending={THREE.AdditiveBlending} />
         </points>
@@ -242,7 +242,7 @@ function Scene() {
 
       <Environment preset="city" />
       
-      <EffectComposer disableNormalPass multisampling={0}>
+      <EffectComposer enableNormalPass={false} multisampling={0}>
         <Bloom 
           luminanceThreshold={0.2} 
           luminanceSmoothing={0.9} 

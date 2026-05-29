@@ -2,12 +2,6 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
     remotePatterns: [
       {
@@ -16,18 +10,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**', 
       },
-      {
-        protocol: 'https',
-        hostname: '*.ngrok-free.app',
-      },
     ],
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ['*.ngrok-free.app'],
     },
   },
-  output: 'standalone',
   transpilePackages: ['motion'],
   webpack: (config, {dev}) => {
     if (dev && process.env.DISABLE_HMR === 'true') {

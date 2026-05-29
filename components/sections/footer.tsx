@@ -87,7 +87,7 @@ export function Footer() {
                     </div>
                 </div>
                 <p className="text-gray-500 font-mono text-xs uppercase tracking-widest max-w-xs leading-relaxed">
-                    Beyond Code. Beyond Design. Engineering the future of immersive digital experiences.
+                  Built by two lifelong friends from Grade 1, now shaping software systems, digital platforms, and AI-powered experiences.
                 </p>
 
                 <div className="mt-12 group">
@@ -153,12 +153,12 @@ export function Footer() {
           </div>
 
           <div className="flex md:hidden order-2">
-            <p className="text-[10px] font-mono text-gray-600">© 2026 KRAKEN ENTERPRISE SYSTEMS. ALL PROTOCOLS ACTIVE.</p>
+            <p className="text-[10px] font-mono text-gray-600 text-center">© 2026 KRAKEN ENTERPRISE SYSTEMS. ALL PROTOCOLS ACTIVE.</p>
           </div>
 
           <div className="flex-1 flex justify-center md:justify-end items-center gap-2 text-[10px] font-mono text-gray-600 order-3">
              <div className="w-2 h-2 rounded-full bg-[var(--color-red)] animate-ping" />
-             <span>SECURE NODE 190.286.21.89</span>
+             <span className="break-all text-center md:text-right">SECURE NODE 190.286.21.89</span>
           </div>
         </div>
       </div>

@@ -168,13 +168,13 @@ export function ShowcaseSection() {
 
   return (
     <section ref={triggerRef} id="showcase" className="relative h-screen bg-black overflow-hidden z-20 border-y border-white/5">
-        <div className="absolute top-12 left-12 z-30">
+        <div className="absolute top-8 left-4 md:top-12 md:left-12 z-30">
             <h2 className="text-[10px] font-mono tracking-[0.4em] text-red-500 uppercase">Deployed Experiences</h2>
         </div>
         
         <div ref={scrollContainerRef} className="flex h-full w-[400vw]">
             {showcases.map((item, index) => (
-                <div key={index} className="w-[100vw] h-full flex flex-col justify-center items-center relative px-12 md:px-20">
+            <div key={index} className="w-[100vw] h-full flex flex-col justify-center items-center relative px-4 sm:px-8 md:px-20">
                     <div className="w-full max-w-6xl aspect-video glass-panel relative overflow-hidden group border border-white/5 hover:border-red-600/30 transition-colors duration-700">
                         
                         {/* Interactive Visualizer */}
@@ -192,7 +192,7 @@ export function ShowcaseSection() {
                         </div>
 
                         {/* Content Overlay */}
-                        <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end z-20">
+                        <div className="absolute inset-0 p-5 sm:p-8 md:p-16 flex flex-col justify-end z-20">
                              <motion.div
                                initial={{ opacity: 0, y: 20 }}
                                whileInView={{ opacity: 1, y: 0 }}
@@ -202,12 +202,12 @@ export function ShowcaseSection() {
                                <span className="text-[10px] font-mono text-red-500 tracking-[0.3em] uppercase mb-4 block">{item.category}</span>
                                <motion.h3
                                  style={{ y: titleY, opacity: titleOpacity }}
-                                 className="text-5xl md:text-7xl lg:text-8xl font-display font-black text-white uppercase tracking-tighter leading-none mb-6"
+                                 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black text-white uppercase tracking-tighter leading-none mb-4 sm:mb-6"
                                >
                                  {item.title}
                                </motion.h3>
                                
-                               <div className="flex items-center space-x-6">
+                               <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                                   <button
                                     onClick={() => {
                                       const el = document.getElementById("contact");

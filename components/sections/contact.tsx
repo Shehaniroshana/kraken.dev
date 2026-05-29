@@ -89,20 +89,20 @@ export function ContactSection() {
             >
               <h2 className="text-sm font-mono text-[var(--color-red)] tracking-[0.3em] uppercase mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-                Contact Us
+                Start the Next Chapter
               </h2>
               <h3 className="text-5xl md:text-6xl font-display font-black text-white uppercase tracking-tighter mb-8 leading-none">
-                Let&apos;s Build The <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-900">Future Together</span>
+                Let&apos;s Build The <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-900">Next Chapter Together</span>
               </h3>
               <p className="text-gray-400 font-mono text-xs leading-relaxed mb-10 max-w-md uppercase tracking-wider">
-                Partner with our engineering team to transform your vision into a high-performance digital reality. We are ready to discuss your next breakthrough project.
+                If the story resonates, we&apos;re ready to turn it into software systems, digital platforms, and AI-powered experiences that feel true to your vision.
               </p>
 
               <div className="glass-panel p-6 inline-block font-mono text-xs text-gray-500 space-y-2 border-red-500/20 shadow-[0_4px_20px_rgba(220,38,38,0.1)]">
                 <div className="flex items-center gap-2">
-                  <span className="text-white">Communication Status:</span> READY
+                  <span className="text-white">Communication Status:</span> READY TO LISTEN
                 </div>
-                <div>&gt; Awaiting your inquiry...</div>
+                <div>&gt; Awaiting the idea that starts everything...</div>
                 <div className="animate-pulse">&gt; _</div>
               </div>
             </motion.div>

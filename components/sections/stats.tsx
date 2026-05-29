@@ -4,10 +4,10 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "motion/react";
 
 const stats = [
-  { value: "100", suffix: "%", label: "Future Focused" },
-  { value: "3.2", suffix: "m+", label: "Queries Per Second" },
-  { value: "0", suffix: ".01ms", label: "System Latency" },
-  { value: "256", suffix: "bit", label: "Quantum Encryption" },
+    { value: "100", suffix: "%", label: "Shared Purpose" },
+    { value: "3.2", suffix: "m+", label: "Paths Shaped" },
+    { value: "0", suffix: ".01ms", label: "Built for Speed" },
+    { value: "256", suffix: "bit", label: "Trust First" },
 ];
 
 function AnimatedCounter({ value, suffix }: { value: string, suffix: string }) {

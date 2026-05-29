@@ -40,7 +40,7 @@ export function VisionSection() {
             <div className="flex items-center justify-between mb-12 border-b border-red-500/20 pb-4">
               <div className="flex items-center space-x-4">
                 <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-                <span className="text-[10px] font-mono tracking-[0.3em] text-red-500 uppercase">System Vision v2.0.4</span>
+                <span className="text-[10px] font-mono tracking-[0.3em] text-red-500 uppercase">Shared Vision v1.0</span>
               </div>
               <div className="hidden md:block text-[10px] font-mono text-gray-500">
                 COORD: 34.0522° N, 118.2437° W
@@ -53,9 +53,9 @@ export function VisionSection() {
                   style={{ y: y1 }}
                   className="text-6xl md:text-8xl lg:text-9xl font-display font-black text-white uppercase leading-[0.85] tracking-tighter"
                 >
-                  Defining the <br />
+                  Built From <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-800 to-red-600">
-                    New Frontier
+                    Two Separate Paths
                   </span>
                 </motion.h2>
               </div>
@@ -66,17 +66,17 @@ export function VisionSection() {
                   className="space-y-8"
                 >
                   <p className="text-lg md:text-xl text-gray-400 font-light leading-relaxed border-l-2 border-red-600 pl-6">
-                    To create visually striking and deeply interactive digital experiences that redefine how users engage with technology.
+                    To turn a friendship that began in Grade 1 into a software company that builds systems, platforms, AI-powered solutions, and immersive experiences for the future.
                   </p>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-white/5 border border-white/10 rounded-sm backdrop-blur-sm">
-                      <div className="text-red-500 font-mono text-xs mb-1">01. AUTONOMY</div>
-                      <div className="text-[10px] text-gray-500">Self-evolving architectures</div>
+                      <div className="text-red-500 font-mono text-xs mb-1">01. TRUST</div>
+                      <div className="text-[10px] text-gray-500">Built over years, not hype</div>
                     </div>
                     <div className="p-4 bg-white/5 border border-white/10 rounded-sm backdrop-blur-sm">
-                      <div className="text-red-500 font-mono text-xs mb-1">02. SYNERGY</div>
-                      <div className="text-[10px] text-gray-500">Neural-linked interfaces</div>
+                      <div className="text-red-500 font-mono text-xs mb-1">02. DIRECTION</div>
+                      <div className="text-[10px] text-gray-500">Different skills, one software company</div>
                     </div>
                   </div>
                 </motion.div>
@@ -87,15 +87,15 @@ export function VisionSection() {
             <div className="mt-20 flex flex-wrap gap-8 items-center text-[10px] font-mono text-gray-600 uppercase tracking-widest">
               <div className="flex items-center space-x-2">
                 <span>Core Status:</span>
-                <span className="text-red-500">Optimal</span>
+                <span className="text-red-500">Unified</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span>Encryption:</span>
-                <span className="text-white">Quantum-Grade</span>
+                <span>Foundation:</span>
+                <span className="text-white">Grade 1 Friendship</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span>Latency:</span>
-                <span className="text-white">0.0012ms</span>
+                <span>Mission:</span>
+                <span className="text-white">Build Software That Matters</span>
               </div>
             </div>
           </div>

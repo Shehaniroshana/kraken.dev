@@ -18,57 +18,57 @@ gsap.registerPlugin(ScrollTrigger);
 const reasons = [
   {
     icon: Zap,
-    title: "Future-Proof Vision",
+    title: "Grade 1 Foundation",
     description:
-      "We build with the next decade in mind. Leveraging AI-native workflows and emergent frameworks to ensure your stack never goes obsolete.",
-    stat: "100%",
-    statLabel: "Future Focused",
-    tag: "NEURAL",
+      "KRAKEN was not invented overnight. It grew out of a friendship that started in Grade 1 and never lost its sense of purpose.",
+    stat: "01",
+    statLabel: "Shared Beginning",
+    tag: "ORIGIN",
   },
   {
     icon: Cpu,
-    title: "High-Frequency Engine",
+    title: "Different Dreams",
     description:
-      "Built on battle-tested architectures that handle massive throughput without breaking a sweat. Performance is not a feature; it's our foundation.",
-    stat: "3.20m+",
-    statLabel: "Queries Per Second",
-    tag: "SYSTEMS",
+      "One of us wanted to carve wood with precision and care. The other wanted to build ideas as a businessman and lead something meaningful.",
+    stat: "02",
+    statLabel: "Childhood Ambitions",
+    tag: "PATHS",
   },
   {
     icon: Rocket,
-    title: "Ultra-Low Latency",
+    title: "Separate Paths",
     description:
-      "Every millisecond matters. We optimize at the hardware and protocol level to deliver experiences that feel instantaneous.",
-    stat: "0.01ms",
-    statLabel: "System Latency",
-    tag: "VELOCITY",
+      "After O/Ls, we went into different industries, learned in different ways, and slowly became the people we were meant to be.",
+    stat: "03",
+    statLabel: "Years of Growth",
+    tag: "JOURNEY",
   },
   {
     icon: Shield,
-    title: "Quantum Security",
+    title: "Skills That Meet",
     description:
-      "Next-generation protection for a post-quantum world. Your data is armored with the most advanced encryption standards available.",
-    stat: "256bit",
-    statLabel: "Quantum Encryption",
-    tag: "DEFENSE",
+      "Those paths became a software engineer focused on backend systems and immersive digital design, bringing different strengths into one software-first company.",
+    stat: "04",
+    statLabel: "Core Strengths",
+    tag: "MERGE",
   },
   {
     icon: Users,
-    title: "Dedicated Partnership",
+    title: "KRAKEN Returns",
     description:
-      "Beyond code, we provide a strategic alliance. Round-the-clock monitoring and instant communication keep your mission critical.",
-    stat: "24/7",
-    statLabel: "Technical Support",
-    tag: "ALLIANCE",
+      "Years later, those separate paths came back together and became KRAKEN: a company built on creativity, engineering, and innovation.",
+    stat: "05",
+    statLabel: "A Shared Company",
+    tag: "RETURN",
   },
   {
     icon: Eye,
-    title: "Agile Momentum",
+    title: "Built for the Future",
     description:
-      "Transparency through constant iteration. See your vision come to life in real-time with regular progress showcases and feedback loops.",
-    stat: "Weekly",
-    statLabel: "Live Demos",
-    tag: "DESIGN",
+      "Today we build scalable software systems, modern digital platforms, AI-powered solutions, and immersive user experiences with the same trust that started it all.",
+    stat: "06",
+    statLabel: "Future Facing",
+    tag: "VISION",
   },
 ];
 
@@ -281,10 +281,10 @@ export function WhyUsSection() {
               style={{ y: smoothHeadingY, opacity: headingOpacity }}
               className="text-5xl md:text-7xl lg:text-8xl font-display font-black text-white uppercase leading-[0.85] tracking-tighter"
             >
-              Why Choose{" "}
+              Why KRAKEN{" "}
               <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-600 to-red-800">
-                KRAKEN
+                Matters
               </span>
             </motion.h2>
 
@@ -292,8 +292,7 @@ export function WhyUsSection() {
               style={{ y: smoothSubtitleY, opacity: headingOpacity }}
               className="max-w-md text-gray-500 text-xs font-mono uppercase tracking-wider leading-relaxed lg:text-right"
             >
-              We don&apos;t just write code — we engineer digital experiences
-              that give your business an unfair advantage in the market.
+              We are two friends who built a software company from the truth of who we became.
             </motion.p>
           </div>
 
@@ -322,7 +321,7 @@ export function WhyUsSection() {
         >
           <div className="inline-flex flex-col items-center gap-6">
             <p className="text-gray-500 font-mono text-[10px] uppercase tracking-[0.3em]">
-              Ready to experience the difference?
+              Ready to build software with people who know the story from the start?
             </p>
             <a
               href="#contact"

@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, type HTMLMotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends HTMLMotionProps<"button"> {
   variant?: "primary" | "glass" | "outline";
   children: React.ReactNode;
   className?: string;

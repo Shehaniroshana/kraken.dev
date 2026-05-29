@@ -16,8 +16,8 @@ export default function ManifestoPage() {
           id="manifesto"
           title="The Core Manifesto"
           subtitle="Philosophical Foundation"
-          description="KRAKEN is a shared vision built on creativity, engineering, and strategy. We believe that different skills and different journeys can come together to build something powerful—creating scalable software and immersive experiences designed for the future."
-          tags={["Creativity", "Engineering", "Strategy", "Innovation"]}
+          description="KRAKEN began with two lifelong friends in Grade 1, grew through separate dreams and separate paths, and became a software company where engineering, creativity, and strategy meet again. Today we build scalable systems, modern platforms, AI-powered solutions, and immersive digital experiences from that shared foundation."
+          tags={["Grade 1", "Friendship", "Engineering", "Growth"]}
           background={<Suspense fallback={null}><ManifestoNeural /></Suspense>}
         />
       </main>
