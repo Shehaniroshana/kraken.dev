@@ -98,7 +98,14 @@ export function Navbar() {
             })}
           </nav>
           
-          <button className="hidden md:inline-block px-6 py-2 border border-red-600/30 bg-red-600/10 text-red-500 text-xs font-bold uppercase tracking-widest hover:bg-red-600 hover:text-white hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] transition-all">
+          <button
+            onClick={() => {
+              const el = document.getElementById("contact");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+              else window.location.href = "#contact";
+            }}
+            className="hidden md:inline-block px-6 py-2 border border-red-600/30 bg-red-600/10 text-red-500 text-xs font-bold uppercase tracking-widest hover:bg-red-600 hover:text-white hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] transition-all"
+          >
             Initialize Core
           </button>
 
@@ -204,6 +211,11 @@ export function Navbar() {
                     transition={{ delay: navLinks.length * 0.08 + 0.1, duration: 0.4 }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      const el = document.getElementById("contact");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                      else window.location.href = "#contact";
+                    }}
                     className="w-full px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] transition-all duration-300 border border-red-500/50"
                   >
                     Initialize Core

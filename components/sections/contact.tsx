@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { MagnetButton } from "@/components/ui/magnet-button";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { sendEmail } from "@/lib/actions";
 
@@ -10,6 +10,12 @@ export function ContactSection() {
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+
+  const closeSuccessModal = useCallback(() => {
+    setIsSuccessOpen(false);
+    setStatus(null);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +28,7 @@ export function ContactSection() {
       
       if (result.success) {
         setStatus({ type: 'success', message: 'Handshake complete. Transmission received.' });
+        setIsSuccessOpen(true);
         formRef.current.reset();
       } else {
         setStatus({ type: 'error', message: result.error || 'System error. Handshake failed.' });
@@ -41,8 +48,30 @@ export function ContactSection() {
                 input.parentElement?.classList.remove('border-red-500');
             });
         });
-     }
+      }
   }, []);
+
+  useEffect(() => {
+    if (!isSuccessOpen) {
+      return;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeSuccessModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeSuccessModal, isSuccessOpen]);
 
   return (
     <section id="contact" className="relative py-32 z-20 overflow-hidden">
@@ -158,8 +187,8 @@ export function ContactSection() {
                   </label>
                 </div>
 
-                {status && (
-                  <div className={`text-[10px] font-mono uppercase tracking-widest p-4 ${status.type === 'success' ? 'text-red-500 bg-red-500/5' : 'text-red-500 bg-red-500/5'}`}>
+                {status?.type === "error" && (
+                  <div className="text-[10px] font-mono uppercase tracking-widest p-4 text-red-500 bg-red-500/5">
                     &gt; {status.message}
                   </div>
                 )}
@@ -173,6 +202,67 @@ export function ContactSection() {
           </motion.div>
         </div>
       </div>
+
+      {isSuccessOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-6 py-10">
+          <button
+            type="button"
+            aria-label="Close success modal"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={closeSuccessModal}
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="relative z-10 w-full max-w-md"
+          >
+            <div className="glass-panel border border-red-500/30 bg-black/80 p-8 text-center shadow-[0_0_40px_rgba(220,38,38,0.2)] overflow-hidden">
+              <div className="absolute -top-24 -left-24 h-48 w-48 rounded-full bg-red-600/30 blur-3xl" />
+              <div className="absolute -bottom-28 -right-16 h-48 w-48 rounded-full bg-red-900/40 blur-3xl" />
+              <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-red-500/60 to-transparent animate-pulse" />
+
+              <div className="relative z-10">
+                <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-red-500/40 bg-red-500/10">
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-red-400"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </div>
+                <p className="text-xs font-mono uppercase tracking-[0.4em] text-red-400 mb-3">
+                  Transmission Confirmed
+                </p>
+                <h4 className="text-2xl font-display font-black text-white uppercase tracking-tight">
+                  Signal Received
+                </h4>
+                <p className="mt-4 text-xs font-mono uppercase tracking-widest text-gray-400">
+                  {status?.message || "Handshake complete. Transmission received."}
+                </p>
+                <div className="mt-6 flex items-center justify-center gap-3 text-[10px] font-mono uppercase tracking-[0.3em] text-red-500/80">
+                  <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-ping" />
+                  Secure Channel Locked
+                </div>
+                <button
+                  type="button"
+                  onClick={closeSuccessModal}
+                  className="mt-8 w-full border border-red-500/40 bg-red-500/10 px-6 py-3 text-[10px] font-mono uppercase tracking-[0.4em] text-red-300 transition hover:border-red-400 hover:text-white hover:bg-red-500/20"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 }

@@ -2,10 +2,19 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const contactEmail = process.env.CONTACT_EMAIL || '';
 
 export async function sendEmail(formData: FormData) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  let resend: Resend | null = null;
+  if (resendApiKey) {
+    try {
+      resend = new Resend(resendApiKey);
+    } catch (err) {
+      console.error('Failed to initialize Resend:', err);
+      resend = null;
+    }
+  }
   const name = formData.get('identifier') as string;
   const subject = formData.get('subject') as string;
   const email = formData.get('commlink') as string;
@@ -13,6 +22,11 @@ export async function sendEmail(formData: FormData) {
 
   if (!name || !email || !message) {
     return { error: 'Missing required fields' };
+  }
+
+  if (!resend) {
+    // Resend is not configured; return a clear message so the caller can fallback to mailto or show UI.
+    return { error: 'Resend API key not configured. Please contact via mailto.' };
   }
 
   try {

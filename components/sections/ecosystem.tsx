@@ -90,7 +90,14 @@ export function EcosystemSection({ id, title, subtitle, description, background,
                     ))}
                   </div>
 
-                  <button className="group flex items-center space-x-4 text-xs font-bold text-white uppercase tracking-widest">
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById("contact");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                      else window.location.href = "#contact";
+                    }}
+                    className="group flex items-center space-x-4 text-xs font-bold text-white uppercase tracking-widest"
+                  >
                     <span>Explore Protocol</span>
                     <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-red-600 group-hover:bg-red-600 transition-all duration-300">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

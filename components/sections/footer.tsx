@@ -3,7 +3,7 @@
 import { useInView } from "motion/react";
 import Image from "next/image";
 import iconImg from "@/app/icon.png";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import Hyperspeed from "@/components/ui/hyperspeed/Hyperspeed";
 import { Github, Twitter, Facebook, Linkedin } from "lucide-react";
 
@@ -25,6 +25,8 @@ const TikTok = ({ size = 18 }: { size?: number }) => (
 export function Footer() {
   const footerRef = useRef<HTMLElement>(null);
   const isInView = useInView(footerRef, { once: false, margin: "200px 0px 200px 0px" });
+
+  const [email, setEmail] = useState("");
 
   const hyperspeedOptions = useMemo(() => ({
     distortion: 'turbulentDistortion',
@@ -94,15 +96,25 @@ export function Footer() {
                         Newsletter Subscription
                     </h4>
                     <div className="relative w-full max-w-sm border-b border-white/10 group-hover:border-red-600/30 transition-colors duration-500">
-                        <input 
-                            type="email" 
-                            className="w-full bg-transparent py-2 text-white font-mono text-xs focus:outline-none focus:border-red-500 transition-colors placeholder:text-gray-700 uppercase tracking-widest"
-                            placeholder="COMM_LINK@KRAKEN"
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full bg-transparent py-2 text-white font-mono text-xs focus:outline-none focus:border-red-500 transition-colors placeholder:text-gray-700 uppercase tracking-widest"
+                          placeholder="COMM_LINK@KRAKEN"
                         />
-                        <button className="absolute right-0 top-1/2 -translate-y-1/2 text-red-500 hover:text-white transition-all duration-300 hover:translate-x-1">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
+                        <button
+                          onClick={() => {
+                            const to = "COMM_LINK@KRAKEN";
+                            const subject = encodeURIComponent("Newsletter Subscription");
+                            const body = encodeURIComponent(`Please subscribe this address:\n\n${email || "(no email provided)"}`);
+                            window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+                          }}
+                          className="absolute right-0 top-1/2 -translate-y-1/2 text-red-500 hover:text-white transition-all duration-300 hover:translate-x-1"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                          </svg>
                         </button>
                     </div>
                 </div>
