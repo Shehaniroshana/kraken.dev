@@ -208,7 +208,14 @@ export function ShowcaseSection() {
                                </motion.h3>
                                
                                <div className="flex items-center space-x-6">
-                                  <button className="px-6 py-2 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all">
+                                  <button
+                                    onClick={() => {
+                                      const el = document.getElementById("contact");
+                                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                                      else window.location.href = "#contact";
+                                    }}
+                                    className="px-6 py-2 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all"
+                                  >
                                     Analyze Case
                                   </button>
                                   <motion.p
