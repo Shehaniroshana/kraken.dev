@@ -1,7 +1,9 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, Suspense } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { Canvas } from "@react-three/fiber";
+import { SecurityCore } from "@/components/three/security-core";
 import { MagnetButton } from "@/components/ui/magnet-button";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -181,6 +183,15 @@ export function WhyUsSection() {
       id="why-us"
       className="relative py-32 md:py-44 z-20 overflow-hidden bg-black"
     >
+      {/* 3D Background */}
+      <div className="absolute inset-0 z-0 opacity-20">
+          <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
+              <Suspense fallback={null}>
+                  <SecurityCore />
+              </Suspense>
+          </Canvas>
+      </div>
+
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
 
         {/* ─── Section Header ─── */}

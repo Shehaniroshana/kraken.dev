@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, CreditCard } from "lucide-react";
+import SoftAurora from "@/components/ui/soft-aurora/SoftAurora";
+import { MagnetButton } from "@/components/ui/magnet-button";
 
 const plans = [
   {
@@ -19,7 +21,6 @@ const plans = [
       "Contact Form Integration",
       "Basic SEO Setup"
     ],
-    accent: "from-zinc-500 to-zinc-800",
     popular: false
   },
   {
@@ -37,7 +38,6 @@ const plans = [
       "Performance Optimization",
       "1 Month Free Support"
     ],
-    accent: "from-red-500 to-red-900",
     popular: true
   },
   {
@@ -55,7 +55,6 @@ const plans = [
       "Scalable Infrastructure",
       "Priority 24/7 Support"
     ],
-    accent: "from-cyan-500 to-cyan-900",
     popular: false
   }
 ];
@@ -64,54 +63,55 @@ export function PricingSection() {
   const [currency, setCurrency] = useState<"USD" | "LKR">("USD");
 
   return (
-    <section id="pricing" className="relative py-24 sm:py-32 bg-black overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-      <div className="absolute -left-40 top-40 w-96 h-96 bg-red-600/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute -right-40 bottom-40 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+    <section id="pricing" className="relative py-32 bg-black overflow-hidden border-t border-white/5">
+      {/* Dynamic Background */}
+      <div className="absolute inset-0 z-0 opacity-40">
+        <SoftAurora 
+          color1="#450a0a" 
+          color2="#000000" 
+          brightness={0.8}
+          speed={0.4}
+        />
+      </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
+        <div className="text-center max-w-4xl mx-auto mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
           >
-            <span className="uppercase tracking-[0.4em] text-[10px] font-black text-red-600 block mb-4 opacity-80">
-              Transparent Pricing
-            </span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black text-white uppercase tracking-tighter mb-6">
-              Invest In <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">Quality</span>
+            <span className="text-red-600 text-[10px] font-display font-black uppercase tracking-[0.4em] block mb-6">Transparent Pricing</span>
+            <h2 className="text-5xl md:text-7xl lg:text-9xl font-display font-black text-white uppercase tracking-tighter leading-none mb-12">
+              Invest in <br /> <span className="premium-gradient-text">Quality</span>
             </h2>
-            <p className="text-zinc-400 text-sm sm:text-base font-mono uppercase tracking-widest max-w-xl mx-auto">
-              No hidden fees. Just premium engineering and design that elevates your digital presence.
+            <p className="text-[10px] md:text-xs text-gray-500 font-display font-black uppercase tracking-[0.2em] max-w-xl mx-auto leading-relaxed mb-16">
+              No hidden fees. Just premium engineering and design that elevates your digital presence to the next dimension.
             </p>
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-12 inline-flex items-center p-1 bg-white/5 border border-white/10 rounded-full"
+            className="inline-flex items-center p-1.5 bg-white/5 border border-white/5 rounded-full backdrop-blur-xl"
           >
             <button
               onClick={() => setCurrency("USD")}
-              className={`px-6 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-widest transition-all ${
+              className={`px-8 py-2.5 rounded-full text-[10px] font-display font-black uppercase tracking-[0.2em] transition-all duration-500 ${
                 currency === "USD" 
-                  ? "bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)]" 
-                  : "text-zinc-400 hover:text-white"
+                  ? "bg-white text-black shadow-[0_10px_20px_rgba(0,0,0,0.5)]" 
+                  : "text-white/40 hover:text-white"
               }`}
             >
               USD ($)
             </button>
             <button
               onClick={() => setCurrency("LKR")}
-              className={`px-6 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-widest transition-all ${
+              className={`px-8 py-2.5 rounded-full text-[10px] font-display font-black uppercase tracking-[0.2em] transition-all duration-500 ${
                 currency === "LKR" 
-                  ? "bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)]" 
-                  : "text-zinc-400 hover:text-white"
+                  ? "bg-white text-black shadow-[0_10px_20px_rgba(0,0,0,0.5)]" 
+                  : "text-white/40 hover:text-white"
               }`}
             >
               LKR (Rs)
@@ -119,75 +119,65 @@ export function PricingSection() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.name}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: index * 0.1 }}
-              className={`relative group ${plan.popular ? 'md:-mt-8 md:mb-8' : ''}`}
+              transition={{ delay: index * 0.1, duration: 0.8 }}
+              className={`relative flex flex-col`}
             >
-              <div className={`absolute inset-0 bg-gradient-to-b ${plan.accent} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-[30px] blur-xl`} />
-              
-              <div className={`relative h-full bg-black/50 backdrop-blur-md rounded-[30px] border ${plan.popular ? 'border-red-500/30' : 'border-white/10'} p-8 sm:p-10 flex flex-col transition-all duration-500 hover:border-white/30 group-hover:transform group-hover:-translate-y-2`}>
+              <div className={`flex-1 h-full bg-[#050505] rounded-[32px] border ${plan.popular ? 'border-red-600/30 shadow-[0_20px_80px_rgba(220,38,38,0.1)]' : 'border-white/5'} p-10 md:p-12 flex flex-col transition-all duration-700 hover:border-white/10 group`}>
                 
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-red-600 text-white text-[10px] font-black font-mono uppercase tracking-widest rounded-full shadow-[0_0_20px_rgba(220,38,38,0.5)]">
+                  <div className="mb-8 inline-block w-fit px-4 py-1.5 bg-red-600 text-white text-[9px] font-display font-black uppercase tracking-[0.3em] rounded-full">
                     Most Popular
                   </div>
                 )}
 
-                <h3 className="text-2xl font-display font-bold text-white uppercase tracking-tight mb-2">
+                <h3 className="text-2xl font-display font-black text-white uppercase tracking-tighter mb-4">
                   {plan.name}
                 </h3>
-                <p className="text-zinc-500 text-xs font-mono uppercase tracking-wider mb-8 min-h-[40px]">
+                <p className="text-gray-500 text-[10px] font-display font-black uppercase tracking-[0.2em] mb-12 min-h-[40px] leading-relaxed">
                   {plan.description}
                 </p>
 
-                <div className="mb-8">
-                  <div className="flex items-end gap-2">
+                <div className="mb-12">
+                  <div className="flex items-baseline gap-2">
                     {plan.price[currency] !== "Custom" && (
-                      <span className="text-xl text-white/50 font-mono mb-1">
+                      <span className="text-xl text-white/20 font-display font-black">
                         {currency === "USD" ? "$" : "Rs."}
                       </span>
                     )}
-                    <span className="text-5xl font-display font-black text-white tracking-tighter">
+                    <span className="text-6xl font-display font-black text-white tracking-tighter">
                       {plan.price[currency]}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex-grow space-y-4 mb-10">
+                <div className="space-y-5 mb-12 flex-1">
                   {plan.features.map((feature, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className={`mt-0.5 p-1 rounded-full ${plan.popular ? 'bg-red-500/20 text-red-500' : 'bg-white/5 text-white/70'}`}>
-                        <Check className="w-3 h-3" strokeWidth={3} />
-                      </div>
-                      <span className="text-sm text-zinc-300 font-mono">
+                    <div key={i} className="flex items-center gap-4">
+                      <div className={`w-1.5 h-1.5 rounded-full ${plan.popular ? 'bg-red-600' : 'bg-white/10'}`}></div>
+                      <span className="text-[10px] text-gray-400 font-display font-black uppercase tracking-[0.2em]">
                         {feature}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <button 
+                <MagnetButton 
+                  variant={plan.popular ? "primary" : "glass"}
                   onClick={() => {
                     const el = document.getElementById("contact");
                     if (el) el.scrollIntoView({ behavior: "smooth" });
-                    else window.location.href = "#contact";
                   }}
-                  className={`w-full group/btn relative overflow-hidden rounded-full py-4 px-6 font-mono text-xs font-bold uppercase tracking-widest transition-all ${
-                  plan.popular 
-                    ? 'bg-red-600 text-white hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]' 
-                    : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'
-                }`}>
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    Get Started
-                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                  </span>
-                </button>
+                  className="w-full"
+                >
+                  Get Started
+                </MagnetButton>
               </div>
             </motion.div>
           ))}

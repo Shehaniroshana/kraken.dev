@@ -1,7 +1,9 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, Suspense } from "react";
 import { motion, useInView } from "motion/react";
+import { Canvas } from "@react-three/fiber";
+import { ArchitectureGrid } from "@/components/three/architecture-grid";
 
 const stats = [
     { value: "100", suffix: "%", label: "Shared Purpose" },
@@ -52,7 +54,16 @@ function AnimatedCounter({ value, suffix }: { value: string, suffix: string }) {
 
 export function StatsSection() {
   return (
-    <section className="relative py-32 bg-black z-20 border-y border-white/5">
+    <section className="relative py-32 bg-black z-20 border-y border-white/5 overflow-hidden">
+      {/* 3D Background */}
+      <div className="absolute inset-0 z-0 opacity-40">
+        <Canvas camera={{ position: [0, 2, 10], fov: 45 }}>
+          <Suspense fallback={null}>
+            <ArchitectureGrid />
+          </Suspense>
+        </Canvas>
+      </div>
+
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
               {stats.map((stat, i) => (

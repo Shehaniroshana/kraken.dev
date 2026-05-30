@@ -1,7 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, Suspense } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { Canvas } from "@react-three/fiber";
+import { CyberCore } from "@/components/three/cyber-core";
 
 const technologies = [
   { name: "React", category: "Frontend" },
@@ -70,6 +72,15 @@ export function TechStackSection() {
         <div className="absolute inset-0 z-0">
           <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-red-600/5 rounded-full blur-[150px] animate-pulse" />
           <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-red-900/5 rounded-full blur-[120px]" />
+        </div>
+
+        {/* 3D Core Element */}
+        <div className="absolute inset-0 z-0 opacity-60">
+            <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
+                <Suspense fallback={null}>
+                    <CyberCore />
+                </Suspense>
+            </Canvas>
         </div>
 
         {/* Foreground Content Layers */}

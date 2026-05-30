@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import iconImg from "@/app/icon.png";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Target, Zap, Code2, Mail, Shield } from "lucide-react";
+import { Target, Zap, Code2, Mail, Shield, CreditCard, Users } from "lucide-react";
 
 const navLinks = [
   { href: "#vision", label: "Vision", Icon: Target },
   { href: "#why-us", label: "Why Us", Icon: Shield },
+  { href: "#team", label: "Team", Icon: Users },
+  { href: "#pricing", label: "Pricing", Icon: CreditCard },
   { href: "#services", label: "Services", Icon: Zap },
   { href: "#tech", label: "Technology", Icon: Code2 },
   { href: "#contact", label: "Contact", Icon: Mail },
