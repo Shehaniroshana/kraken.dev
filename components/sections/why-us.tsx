@@ -19,57 +19,57 @@ gsap.registerPlugin(ScrollTrigger);
 const reasons = [
   {
     icon: Zap,
-    title: "Grade 1 Foundation",
+    title: "System Craftsmanship",
     description:
-      "KRAKEN was not invented overnight. It grew out of a friendship that started in Grade 1 and never lost its sense of purpose.",
+      "We apply the precision of physical craftsmanship to software engineering, building systems with meticulous attention to every line of code.",
     stat: "01",
-    statLabel: "Shared Beginning",
-    tag: "ORIGIN",
+    statLabel: "Technical Precision",
+    tag: "ENGINEERING",
   },
   {
     icon: Cpu,
-    title: "Different Dreams",
+    title: "Strategic Growth",
     description:
-      "One of us wanted to carve wood with precision and care. The other wanted to build ideas as a businessman and lead something meaningful.",
+      "Backed by elite marketing expertise, we build platforms that don't just function—they are engineered to dominate their market segment.",
     stat: "02",
-    statLabel: "Childhood Ambitions",
-    tag: "PATHS",
+    statLabel: "Market Leadership",
+    tag: "STRATEGY",
   },
   {
     icon: Rocket,
-    title: "Separate Paths",
+    title: "Enterprise Scale",
     description:
-      "After O/Ls, we went into different industries, learned in different ways, and slowly became the people we were meant to be.",
+      "Our architectures are designed for infinite growth, utilizing cloud-native protocols to ensure stability under heavy neural loads.",
     stat: "03",
-    statLabel: "Years of Growth",
-    tag: "JOURNEY",
+    statLabel: "Scalable Core",
+    tag: "INFRASTRUCTURE",
   },
   {
     icon: Shield,
-    title: "Skills That Meet",
+    title: "Deep Interaction",
     description:
-      "Those paths became a software engineer focused on backend systems and immersive digital design, bringing different strengths into one software-first company.",
+      "We move beyond static interfaces to create immersive, 3D-driven digital experiences that redefine how users engage with technology.",
     stat: "04",
-    statLabel: "Core Strengths",
-    tag: "MERGE",
+    statLabel: "User Experience",
+    tag: "INTERACTION",
   },
   {
     icon: Users,
-    title: "KRAKEN Returns",
+    title: "AI Integration",
     description:
-      "Years later, those separate paths came back together and became KRAKEN: a company built on creativity, engineering, and innovation.",
+      "Implementing cutting-edge neural logic and LLM-powered automation to deliver next-generation intelligence to your workflow.",
     stat: "05",
-    statLabel: "A Shared Company",
-    tag: "RETURN",
+    statLabel: "Intelligence",
+    tag: "NEURAL",
   },
   {
     icon: Eye,
-    title: "Built for the Future",
+    title: "Lifelong Partnership",
     description:
-      "Today we build scalable software systems, modern digital platforms, AI-powered solutions, and immersive user experiences with the same trust that started it all.",
+      "Built on a foundation of trust that spans decades, we offer a level of commitment and stability that goes beyond traditional agencies.",
     stat: "06",
-    statLabel: "Future Facing",
-    tag: "VISION",
+    statLabel: "Built on Trust",
+    tag: "PARTNERSHIP",
   },
 ];
 
@@ -77,12 +77,21 @@ const reasons = [
 function ReasonCard({
   reason,
   index,
+  scrollYProgress,
 }: {
   reason: (typeof reasons)[0];
   index: number;
+  scrollYProgress: any;
 }) {
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50 * ((index % 3) + 1)]);
+  const springY = useSpring(y, { stiffness: 60, damping: 20 });
+
   return (
-    <div className="why-card group relative" data-col={index % 3}>
+    <motion.div 
+      className="why-card group relative" 
+      data-col={index % 3}
+      style={{ y: springY }}
+    >
       <div className="relative h-full bg-[#050505] rounded-[32px] border border-white/5 overflow-hidden transition-all duration-700 hover:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
         
         {/* Hover Glow */}
@@ -128,7 +137,7 @@ function ReasonCard({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -198,7 +207,7 @@ export function WhyUsSection() {
               Why KRAKEN <br/> <span className="premium-gradient-text">Matters</span>
             </h2>
             <p className="max-w-xl text-gray-500 text-[10px] md:text-xs font-display font-black uppercase tracking-[0.2em] leading-relaxed">
-              We are two friends who built a software company from the truth of who we became.
+              Engineering excellence and strategic insight built on a foundation of absolute trust.
             </p>
           </motion.div>
         </div>
@@ -209,7 +218,12 @@ export function WhyUsSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {reasons.map((reason, i) => (
-            <ReasonCard key={reason.title} reason={reason} index={i} />
+            <ReasonCard 
+              key={reason.title} 
+              reason={reason} 
+              index={i} 
+              scrollYProgress={scrollYProgress}
+            />
           ))}
         </div>
 

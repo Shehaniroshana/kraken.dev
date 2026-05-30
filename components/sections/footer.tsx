@@ -140,9 +140,9 @@ export function Footer() {
           </p>
 
           <div className="flex justify-center gap-8">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="text-white/20 hover:text-white transition-colors"><Github size={16} /></a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="text-white/20 hover:text-white transition-colors"><Twitter size={16} /></a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-white/20 hover:text-white transition-colors"><Linkedin size={16} /></a>
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="text-white/20 hover:text-white transition-colors"><Github size={20} /></a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="text-white/20 hover:text-white transition-colors"><Twitter size={20} /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-white/20 hover:text-white transition-colors"><Linkedin size={20} /></a>
           </div>
 
           <div className="flex items-center gap-3 text-[8px] font-display font-black text-white/20 uppercase tracking-[0.3em]">

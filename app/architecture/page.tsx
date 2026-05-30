@@ -3,7 +3,7 @@
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/sections/footer";
 import { EcosystemSection } from "@/components/sections/ecosystem";
-import { ArchitectureGrid } from "@/components/three/architecture-grid";
+import { CyberCore } from "@/components/three/cyber-core";
 import { Suspense } from "react";
 import SmoothScrolling from "@/components/smooth-scrolling";
 
@@ -18,7 +18,7 @@ export default function ArchitecturePage() {
           subtitle="Structural Integrity"
           description="Engineered for maximum scalability and precision. We build modern digital platforms and software systems designed to handle complex logic while delivering immersive, future-driven user experiences."
           tags={["Scalable", "Modern", "Immersive", "Precise"]}
-          background={<Suspense fallback={null}><ArchitectureGrid /></Suspense>}
+          background={<Suspense fallback={null}><CyberCore /></Suspense>}
         />
       </main>
       <Footer />

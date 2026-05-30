@@ -7,7 +7,6 @@ import { ServicesSection } from "@/components/sections/services";
 import { VisionSection } from "@/components/sections/vision";
 import { TechStackSection } from "@/components/sections/tech-stack";
 import { ShowcaseSection } from "@/components/sections/showcase";
-import { StatsSection } from "@/components/sections/stats";
 import { WhyUsSection } from "@/components/sections/why-us";
 import { PricingSection } from "@/components/sections/pricing";
 import { ContactSection } from "@/components/sections/contact";
@@ -30,7 +29,6 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <VisionSection />
-        <StatsSection />
         <WhyUsSection />
         <PricingSection />
         <ServicesSection />

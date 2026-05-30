@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "motion/react";
 import { Plus, Minus } from "lucide-react";
 
 const faqs = [
@@ -29,9 +29,14 @@ const faqs = [
 
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
   return (
-    <section id="faq" className="relative py-24 sm:py-32 bg-black overflow-hidden z-30">
+    <section ref={containerRef} id="faq" className="relative py-24 sm:py-32 bg-black overflow-hidden z-30">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/5 rounded-full blur-[150px] pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10 max-w-4xl">
@@ -52,10 +57,15 @@ export function FaqSection() {
         <div className="space-y-4">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const y = useTransform(scrollYProgress, [0, 1], [0, -30 * (index + 1)]);
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const springY = useSpring(y, { stiffness: 100, damping: 30 });
             
             return (
               <motion.div
                 key={index}
+                style={{ y: springY }}
                 initial={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`border transition-all duration-300 rounded-[20px] overflow-hidden ${

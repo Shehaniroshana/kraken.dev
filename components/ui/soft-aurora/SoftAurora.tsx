@@ -181,7 +181,7 @@ export default function SoftAurora({
   mouseInfluence = 0.25
 }: SoftAuroraProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isVisibleRef = useRef(false);
+  const isVisibleRef = useRef(true);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -208,11 +208,16 @@ export default function SoftAurora({
 
     function resize() {
       if (!container) return;
-      renderer.setSize(container.offsetWidth, container.offsetHeight);
+      const width = container.offsetWidth || window.innerWidth;
+      const height = container.offsetHeight || window.innerHeight;
+      renderer.setSize(width, height);
       if (program) {
         program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height];
       }
     }
+    
+    const resizeObserver = new ResizeObserver(() => resize());
+    resizeObserver.observe(container);
     window.addEventListener('resize', resize);
     resize();
 
@@ -281,6 +286,7 @@ export default function SoftAurora({
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      resizeObserver.disconnect();
       window.removeEventListener('resize', resize);
       if (enableMouseInteraction) {
         gl.canvas.removeEventListener('mousemove', handleMouseMove);

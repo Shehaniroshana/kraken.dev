@@ -1,10 +1,21 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { MagnetButton } from "@/components/ui/magnet-button";
 import dynamic from "next/dynamic";
+import { useRef } from "react";
 
 export function HeroSection() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -16,12 +27,12 @@ export function HeroSection() {
   };
 
   return (
-    <section id="hero" className="relative min-h-[100svh] w-full flex flex-col items-center justify-center px-6 py-20 overflow-hidden z-10">
+    <section ref={containerRef} id="hero" className="relative min-h-[100svh] w-full flex flex-col items-center justify-center px-6 py-20 overflow-hidden z-10">
       
       {/* Overlay Gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10 pointer-events-none" />
 
-      <div className="relative z-20 w-full max-w-5xl mx-auto text-center">
+      <motion.div style={{ y: y1, opacity }} className="relative z-20 w-full max-w-5xl mx-auto text-center">
         <motion.div
            initial={{ opacity: 0, y: 20 }}
            animate={{ opacity: 1, y: 0 }}
@@ -54,6 +65,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
+          style={{ y: y2 }}
           className="mt-12 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8"
         >
           <MagnetButton variant="primary" onClick={() => scrollToSection("contact")}>
@@ -63,7 +75,7 @@ export function HeroSection() {
             Explore Vision
           </MagnetButton>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Floating HUD Elements */}
       <div className="absolute bottom-12 left-12 hidden lg:block z-20">

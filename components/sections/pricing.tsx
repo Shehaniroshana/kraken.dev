@@ -5,66 +5,86 @@ import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { Check, CreditCard } from "lucide-react";
 import SoftAurora from "@/components/ui/soft-aurora/SoftAurora";
 import { MagnetButton } from "@/components/ui/magnet-button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const plans = [
   {
-    name: "Starter",
-    description: "Perfect for single campaigns or landing pages.",
+    name: "Essential",
+    description: "High-impact single page systems for focused objectives.",
     price: {
-      USD: "150",
-      LKR: "45,000"
+      USD: "250",
+      LKR: "75,000"
     },
     features: [
-      "Single Page (Landing Page)",
-      "Custom Premium Design",
-      "Mobile Responsive",
-      "Contact Form Integration",
-      "Basic SEO Setup"
+      "Single Page Architecture",
+      "Custom UI/UX Framework",
+      "Mobile First Syntax",
+      "Standard Performance",
+      "Basic SEO Protocol"
     ],
     popular: false,
     speed: 1.1
   },
   {
-    name: "Business",
-    description: "Ideal for startups and growing businesses.",
+    name: "Professional",
+    description: "Multi-page platforms for established professional entities.",
     price: {
-      USD: "350",
-      LKR: "105,000"
+      USD: "650",
+      LKR: "195,000"
     },
     features: [
-      "1-5 Pages Website",
-      "Advanced Animations",
-      "CMS Integration",
-      "Advanced SEO Optimization",
-      "Performance Optimization",
-      "1 Month Free Support"
+      "1-5 Page Architecture",
+      "Advanced Motion Layers",
+      "Content Management (CMS)",
+      "Technical SEO Protocol",
+      "Speed Optimization",
+      "1 Month Maintenance"
     ],
-    popular: true,
-    speed: 1.3
+    popular: false,
+    speed: 1.2
   },
   {
-    name: "Enterprise",
-    description: "Complex platforms and full-stack web applications.",
+    name: "Business",
+    description: "Full-scale digital ecosystems for market dominance.",
+    price: {
+      USD: "1,250",
+      LKR: "375,000"
+    },
+    features: [
+      "Unlimited Architecture",
+      "Elite Interaction Design",
+      "Custom Backend / APIs",
+      "User Authentication",
+      "Database Integration",
+      "Priority Support Core"
+    ],
+    popular: true,
+    speed: 1.4
+  },
+  {
+    name: "Custom Engine",
+    description: "Complex SaaS, AI, and enterprise-grade platforms.",
     price: {
       USD: "Custom",
       LKR: "Custom"
     },
     features: [
-      "Unlimited Pages",
-      "Custom Backend / API",
-      "Database Architecture",
-      "AI Integration (Optional)",
-      "Scalable Infrastructure",
-      "Priority 24/7 Support"
+      "SaaS Architecture",
+      "AI / Neural Integration",
+      "Complex Logic Flows",
+      "Infrastructure Scaling",
+      "Advanced Data Security",
+      "Dedicated Dev Ops"
     ],
     popular: false,
-    speed: 1.2
+    speed: 1.3
   }
 ];
 
 export function PricingSection() {
   const [currency, setCurrency] = useState<"USD" | "LKR">("USD");
   const sectionRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -74,12 +94,12 @@ export function PricingSection() {
   return (
     <section ref={sectionRef} id="pricing" className="relative py-32 bg-black overflow-hidden border-t border-white/5">
       {/* Dynamic Background */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0">
         <SoftAurora 
-          color1="#450a0a" 
-          color2="#000000" 
-          brightness={0.8}
-          speed={0.4}
+          color1="#8b0000" 
+          color2="#450a0a" 
+          brightness={1.0}
+          speed={0.3}
         />
       </div>
 
@@ -128,24 +148,24 @@ export function PricingSection() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto items-stretch">
           {plans.map((plan, index) => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
-            const y = useTransform(scrollYProgress, [0, 1], [0, -100 * plan.speed]);
+            const y = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : -100 * plan.speed]);
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const springY = useSpring(y, { stiffness: 100, damping: 30 });
 
             return (
               <motion.div
                 key={plan.name}
-                style={{ y: springY }}
+                style={{ y: isMobile ? 0 : springY }}
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.8 }}
-                className={`relative flex flex-col`}
+                className={`relative flex flex-col h-full`}
               >
-                <div className={`flex-1 h-full bg-[#050505] rounded-[32px] border ${plan.popular ? 'border-red-600/30 shadow-[0_20px_80px_rgba(220,38,38,0.1)]' : 'border-white/5'} p-10 md:p-12 flex flex-col transition-all duration-700 hover:border-white/10 group`}>
+                <div className={`flex-1 flex flex-col h-full bg-[#050505] rounded-[32px] border ${plan.popular ? 'border-red-600/30 shadow-[0_20px_80px_rgba(220,38,38,0.1)]' : 'border-white/5'} p-10 md:p-8 xl:p-10 transition-all duration-700 hover:border-white/10 group`}>
                   
                   {plan.popular && (
                     <div className="mb-8 inline-block w-fit px-4 py-1.5 bg-red-600 text-white text-[9px] font-display font-black uppercase tracking-[0.3em] rounded-full">
@@ -161,13 +181,13 @@ export function PricingSection() {
                   </p>
 
                   <div className="mb-12">
-                    <div className="flex items-baseline gap-2">
+                    <div className="flex items-baseline gap-1 sm:gap-2 overflow-hidden">
                       {plan.price[currency] !== "Custom" && (
-                        <span className="text-xl text-white/20 font-display font-black">
+                        <span className="text-lg sm:text-xl text-white/20 font-display font-black">
                           {currency === "USD" ? "$" : "Rs."}
                         </span>
                       )}
-                      <span className="text-6xl font-display font-black text-white tracking-tighter">
+                      <span className="text-4xl sm:text-5xl xl:text-6xl font-display font-black text-white tracking-tighter truncate">
                         {plan.price[currency]}
                       </span>
                     </div>

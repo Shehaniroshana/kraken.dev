@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { Radar, Layers, Terminal, Flame } from "lucide-react";
+import { useRef } from "react";
 
 const steps = [
   {
@@ -39,8 +40,14 @@ const steps = [
 ];
 
 export function ProcessSection() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
   return (
-    <section id="process" className="relative py-24 sm:py-32 bg-black overflow-hidden">
+    <section ref={containerRef} id="process" className="relative py-24 sm:py-32 bg-black overflow-hidden">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10 max-w-7xl">
@@ -68,38 +75,46 @@ export function ProcessSection() {
           <div className="absolute top-1/2 left-0 w-full h-1 bg-white/5 -translate-y-1/2 hidden lg:block" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: index * 0.15 }}
-                className="relative group"
-              >
-                {/* Node on the line */}
-                <div className="hidden lg:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-black border-2 border-white/20 group-hover:border-red-500 transition-colors duration-500 z-10" />
+            {steps.map((step, index) => {
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              const y = useTransform(scrollYProgress, [0, 1], [0, -40 * (index + 1)]);
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              const springY = useSpring(y, { stiffness: 100, damping: 30 });
 
-                <div className="bg-black/40 backdrop-blur-md border border-white/5 hover:border-white/20 p-8 rounded-[30px] transition-all duration-500 group-hover:-translate-y-2 h-full flex flex-col">
-                  <div className="flex items-center justify-between mb-8">
-                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${step.color} ${step.shadow} shadow-lg`}>
-                      <step.icon className="w-6 h-6 text-white" />
+              return (
+                <motion.div
+                    key={step.id}
+                    style={{ y: springY }}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: index * 0.15 }}
+                    className="relative group"
+                >
+                    {/* Node on the line */}
+                    <div className="hidden lg:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-black border-2 border-white/20 group-hover:border-red-500 transition-colors duration-500 z-10" />
+
+                    <div className="bg-black/40 backdrop-blur-md border border-white/5 hover:border-white/20 p-8 rounded-[30px] transition-all duration-500 group-hover:-translate-y-2 h-full flex flex-col">
+                    <div className="flex items-center justify-between mb-8">
+                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${step.color} ${step.shadow} shadow-lg`}>
+                        <step.icon className="w-6 h-6 text-white" />
+                        </div>
+                        <span className="text-4xl font-display font-black text-white/5 group-hover:text-white/10 transition-colors duration-500">
+                        {step.id}
+                        </span>
                     </div>
-                    <span className="text-4xl font-display font-black text-white/5 group-hover:text-white/10 transition-colors duration-500">
-                      {step.id}
-                    </span>
-                  </div>
 
-                  <h3 className="text-xl font-display font-bold text-white uppercase tracking-tight mb-4 group-hover:text-red-400 transition-colors">
-                    {step.title}
-                  </h3>
-                  
-                  <p className="text-zinc-500 text-xs font-mono uppercase tracking-widest leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                    <h3 className="text-xl font-display font-bold text-white uppercase tracking-tight mb-4 group-hover:text-red-400 transition-colors">
+                        {step.title}
+                    </h3>
+                    
+                    <p className="text-zinc-500 text-xs font-mono uppercase tracking-widest leading-relaxed">
+                        {step.description}
+                    </p>
+                    </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>
