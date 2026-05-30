@@ -10,7 +10,6 @@ import { Target, Zap, Code2, Mail, Shield, CreditCard, Users } from "lucide-reac
 const navLinks = [
   { href: "#vision", label: "Vision", Icon: Target },
   { href: "#why-us", label: "Why Us", Icon: Shield },
-  { href: "#team", label: "Team", Icon: Users },
   { href: "#pricing", label: "Pricing", Icon: CreditCard },
   { href: "#services", label: "Services", Icon: Zap },
   { href: "#tech", label: "Technology", Icon: Code2 },
@@ -61,7 +60,7 @@ export function Navbar() {
         }`}
       >
         <div className={`container mx-auto px-6 max-w-7xl flex justify-between items-center transition-all duration-500 ${
-            scrolled ? "glass-panel rounded-full px-8 py-3 max-w-4xl" : ""
+            scrolled ? "glass-panel !border-0 !border-none rounded-full px-8 py-3 max-w-4xl" : ""
         }`}>
           <a href="#hero" className="flex items-center group cursor-pointer">
               <div className="relative w-8 h-8 sm:w-10 sm:h-10 transition-transform duration-500 group-hover:scale-110">

@@ -182,6 +182,7 @@ export default function EvilEye({
   backgroundColor = '#000000'
 }: EvilEyeProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isVisibleRef = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -259,6 +260,8 @@ export default function EvilEye({
 
     function update(time: number) {
       animationFrameId = requestAnimationFrame(update);
+      if (!isVisibleRef.current) return;
+      
       mouse.x += (mouse.tx - mouse.x) * 0.05;
       mouse.y += (mouse.ty - mouse.y) * 0.05;
       if (program) {
@@ -269,11 +272,20 @@ export default function EvilEye({
     }
     animationFrameId = requestAnimationFrame(update);
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isVisibleRef.current = entries[0].isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    observer.observe(container);
+
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resize);
       container.removeEventListener('mousemove', onMouseMove);
       container.removeEventListener('mouseleave', onMouseLeave);
+      observer.disconnect();
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }

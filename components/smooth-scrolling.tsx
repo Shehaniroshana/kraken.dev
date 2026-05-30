@@ -33,18 +33,18 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
 
     lenis.on('scroll', ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const updateLenis = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
 
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.add(updateLenis);
+
+    gsap.ticker.lagSmoothing(500, 33);
 
     return () => {
       lenis.destroy();
       window.removeEventListener('focusin', handleFocus as any);
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(updateLenis);
     };
   }, []);
 

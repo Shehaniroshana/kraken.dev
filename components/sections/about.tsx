@@ -44,13 +44,13 @@ export function AboutSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             <div className="glass-panel p-10 bg-white/5 border-white/5 backdrop-blur-2xl">
               <span className="text-[10px] font-display font-black text-red-600 uppercase tracking-[0.3em] block mb-6">01 // The Beginning</span>
-              <p className="text-gray-400 text-sm leading-relaxed uppercase tracking-widest font-medium">
+              <p className="text-gray-400 text-[10px] leading-relaxed uppercase tracking-widest font-medium">
                 KRAKEN started with two friends who met in Grade 1 and carried different dreams for years. One quietly wanted to become a wood carver, creating meaningful work with precision and patience. The other dreamed of becoming a software engineer, focused on building systems, solving problems, and leading through technology.
               </p>
             </div>
             <div className="glass-panel p-10 bg-white/5 border-white/5 backdrop-blur-2xl">
               <span className="text-[10px] font-display font-black text-red-600 uppercase tracking-[0.3em] block mb-6">02 // The Return</span>
-              <p className="text-gray-400 text-sm leading-relaxed uppercase tracking-widest font-medium">
+              <p className="text-gray-400 text-[10px] leading-relaxed uppercase tracking-widest font-medium">
                 After years of separate growth, our paths merged again. KRAKEN is where the precision of craftsmanship meets the power of software engineering. We build with the same care and intent that a carver gives to wood, but with the scale and impact of modern technology.
               </p>
             </div>

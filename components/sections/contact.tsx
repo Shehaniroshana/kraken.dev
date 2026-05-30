@@ -74,7 +74,7 @@ export function ContactSection() {
   }, [closeSuccessModal, isSuccessOpen]);
 
   return (
-    <section id="contact" className="relative py-32 z-20 overflow-hidden">
+    <section id="contact" className={`relative py-32 overflow-hidden transition-all duration-500 ${isSuccessOpen ? "z-50" : "z-20"}`}>
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="flex flex-col lg:flex-row gap-20 items-center">
           
@@ -84,6 +84,7 @@ export function ContactSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
+              className="glass-panel p-10 bg-white/5 border-white/5 backdrop-blur-3xl rounded-[32px]"
             >
               <span className="text-red-600 text-[10px] font-display font-black uppercase tracking-[0.4em] block mb-6">Start a Project</span>
               <h3 className="text-4xl md:text-6xl font-display font-black text-white uppercase tracking-tighter mb-8 leading-[1.1]">
@@ -93,7 +94,7 @@ export function ContactSection() {
                 If the story resonates, we&apos;re ready to turn it into software systems, digital platforms, and AI-powered experiences that feel true to your vision.
               </p>
 
-              <div className="glass-panel p-8 inline-block bg-white/5 border-white/5">
+              <div className="p-8 inline-block bg-white/5 border border-white/10 rounded-2xl">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>
                   <span className="text-white text-[9px] font-display font-black uppercase tracking-widest">Status: Ready</span>
@@ -143,7 +144,7 @@ export function ContactSection() {
                     name="data"
                     rows={3}
                     required
-                    className="w-full bg-transparent py-2 text-white font-display font-black text-xs focus:outline-none resize-none placeholder:text-white/5 uppercase tracking-[0.2em]"
+                    className="w-full bg-transparent py-2 text-white font-display font-black text-xs focus:outline-none placeholder:text-white/5 uppercase tracking-[0.2em] overflow-y-auto"
                     placeholder="DESC_REQUIRED"
                   ></textarea>
                 </div>
@@ -164,7 +165,7 @@ export function ContactSection() {
       </div>
 
       {isSuccessOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-6">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={closeSuccessModal} />
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

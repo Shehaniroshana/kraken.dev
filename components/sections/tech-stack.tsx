@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, Suspense } from "react";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { motion, useScroll, useTransform, useSpring, useInView } from "motion/react";
 import { Canvas } from "@react-three/fiber";
 import { CyberCore } from "@/components/three/cyber-core";
 
@@ -49,6 +49,8 @@ function TechNode({ tech, index }: { tech: typeof technologies[0]; index: number
 
 export function TechStackSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { margin: "200px 0px" });
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -76,11 +78,13 @@ export function TechStackSection() {
 
         {/* 3D Core Element */}
         <div className="absolute inset-0 z-0 opacity-60">
-            <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
-                <Suspense fallback={null}>
-                    <CyberCore />
-                </Suspense>
-            </Canvas>
+            {isInView && (
+              <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
+                  <Suspense fallback={null}>
+                      <CyberCore />
+                  </Suspense>
+              </Canvas>
+            )}
         </div>
 
         {/* Foreground Content Layers */}

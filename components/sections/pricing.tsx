@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useState, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { Check, CreditCard } from "lucide-react";
 import SoftAurora from "@/components/ui/soft-aurora/SoftAurora";
 import { MagnetButton } from "@/components/ui/magnet-button";
@@ -21,7 +21,8 @@ const plans = [
       "Contact Form Integration",
       "Basic SEO Setup"
     ],
-    popular: false
+    popular: false,
+    speed: 1.1
   },
   {
     name: "Business",
@@ -38,7 +39,8 @@ const plans = [
       "Performance Optimization",
       "1 Month Free Support"
     ],
-    popular: true
+    popular: true,
+    speed: 1.3
   },
   {
     name: "Enterprise",
@@ -55,15 +57,22 @@ const plans = [
       "Scalable Infrastructure",
       "Priority 24/7 Support"
     ],
-    popular: false
+    popular: false,
+    speed: 1.2
   }
 ];
 
 export function PricingSection() {
   const [currency, setCurrency] = useState<"USD" | "LKR">("USD");
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
 
   return (
-    <section id="pricing" className="relative py-32 bg-black overflow-hidden border-t border-white/5">
+    <section ref={sectionRef} id="pricing" className="relative py-32 bg-black overflow-hidden border-t border-white/5">
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0 opacity-40">
         <SoftAurora 
@@ -120,67 +129,75 @@ export function PricingSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {plans.map((plan, index) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.8 }}
-              className={`relative flex flex-col`}
-            >
-              <div className={`flex-1 h-full bg-[#050505] rounded-[32px] border ${plan.popular ? 'border-red-600/30 shadow-[0_20px_80px_rgba(220,38,38,0.1)]' : 'border-white/5'} p-10 md:p-12 flex flex-col transition-all duration-700 hover:border-white/10 group`}>
-                
-                {plan.popular && (
-                  <div className="mb-8 inline-block w-fit px-4 py-1.5 bg-red-600 text-white text-[9px] font-display font-black uppercase tracking-[0.3em] rounded-full">
-                    Most Popular
-                  </div>
-                )}
+          {plans.map((plan, index) => {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const y = useTransform(scrollYProgress, [0, 1], [0, -100 * plan.speed]);
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const springY = useSpring(y, { stiffness: 100, damping: 30 });
 
-                <h3 className="text-2xl font-display font-black text-white uppercase tracking-tighter mb-4">
-                  {plan.name}
-                </h3>
-                <p className="text-gray-500 text-[10px] font-display font-black uppercase tracking-[0.2em] mb-12 min-h-[40px] leading-relaxed">
-                  {plan.description}
-                </p>
+            return (
+              <motion.div
+                key={plan.name}
+                style={{ y: springY }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.8 }}
+                className={`relative flex flex-col`}
+              >
+                <div className={`flex-1 h-full bg-[#050505] rounded-[32px] border ${plan.popular ? 'border-red-600/30 shadow-[0_20px_80px_rgba(220,38,38,0.1)]' : 'border-white/5'} p-10 md:p-12 flex flex-col transition-all duration-700 hover:border-white/10 group`}>
+                  
+                  {plan.popular && (
+                    <div className="mb-8 inline-block w-fit px-4 py-1.5 bg-red-600 text-white text-[9px] font-display font-black uppercase tracking-[0.3em] rounded-full">
+                      Most Popular
+                    </div>
+                  )}
 
-                <div className="mb-12">
-                  <div className="flex items-baseline gap-2">
-                    {plan.price[currency] !== "Custom" && (
-                      <span className="text-xl text-white/20 font-display font-black">
-                        {currency === "USD" ? "$" : "Rs."}
-                      </span>
-                    )}
-                    <span className="text-6xl font-display font-black text-white tracking-tighter">
-                      {plan.price[currency]}
-                    </span>
-                  </div>
-                </div>
+                  <h3 className="text-2xl font-display font-black text-white uppercase tracking-tighter mb-4">
+                    {plan.name}
+                  </h3>
+                  <p className="text-gray-500 text-[10px] font-display font-black uppercase tracking-[0.2em] mb-12 min-h-[40px] leading-relaxed">
+                    {plan.description}
+                  </p>
 
-                <div className="space-y-5 mb-12 flex-1">
-                  {plan.features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-4">
-                      <div className={`w-1.5 h-1.5 rounded-full ${plan.popular ? 'bg-red-600' : 'bg-white/10'}`}></div>
-                      <span className="text-[10px] text-gray-400 font-display font-black uppercase tracking-[0.2em]">
-                        {feature}
+                  <div className="mb-12">
+                    <div className="flex items-baseline gap-2">
+                      {plan.price[currency] !== "Custom" && (
+                        <span className="text-xl text-white/20 font-display font-black">
+                          {currency === "USD" ? "$" : "Rs."}
+                        </span>
+                      )}
+                      <span className="text-6xl font-display font-black text-white tracking-tighter">
+                        {plan.price[currency]}
                       </span>
                     </div>
-                  ))}
-                </div>
+                  </div>
 
-                <MagnetButton 
-                  variant={plan.popular ? "primary" : "glass"}
-                  onClick={() => {
-                    const el = document.getElementById("contact");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="w-full"
-                >
-                  Get Started
-                </MagnetButton>
-              </div>
-            </motion.div>
-          ))}
+                  <div className="space-y-5 mb-12 flex-1">
+                    {plan.features.map((feature, i) => (
+                      <div key={i} className="flex items-center gap-4">
+                        <div className={`w-1.5 h-1.5 rounded-full ${plan.popular ? 'bg-red-600' : 'bg-white/10'}`}></div>
+                        <span className="text-[10px] text-gray-400 font-display font-black uppercase tracking-[0.2em]">
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <MagnetButton 
+                    variant={plan.popular ? "primary" : "glass"}
+                    onClick={() => {
+                      const el = document.getElementById("contact");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="w-full"
+                  >
+                    Get Started
+                  </MagnetButton>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

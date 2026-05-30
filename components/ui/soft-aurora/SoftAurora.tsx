@@ -181,6 +181,7 @@ export default function SoftAurora({
   mouseInfluence = 0.25
 }: SoftAuroraProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isVisibleRef = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -252,6 +253,8 @@ export default function SoftAurora({
 
     function update(time: number) {
       animationFrameId = requestAnimationFrame(update);
+      if (!isVisibleRef.current) return;
+
       program.uniforms.uTime.value = time * 0.001;
 
       if (enableMouseInteraction) {
@@ -268,6 +271,14 @@ export default function SoftAurora({
     }
     animationFrameId = requestAnimationFrame(update);
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isVisibleRef.current = entries[0].isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    observer.observe(container);
+
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resize);
@@ -275,6 +286,7 @@ export default function SoftAurora({
         gl.canvas.removeEventListener('mousemove', handleMouseMove);
         gl.canvas.removeEventListener('mouseleave', handleMouseLeave);
       }
+      observer.disconnect();
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }
