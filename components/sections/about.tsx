@@ -11,47 +11,47 @@ export function AboutSection() {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["50%", "-50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0, 1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
     <section ref={containerRef} id="about" className="relative min-h-screen py-32 z-20 overflow-hidden flex items-center bg-black">
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0">
         <LiquidEther
-          colors={['#450a0a', '#991b1b', '#ef4444', '#000000']}
-          mouseForce={25}
-          cursorSize={100}
-          resolution={0.5}
+          colors={['#1a0505', '#2d0a0a', '#450a0a', '#000000']}
+          mouseForce={15}
+          cursorSize={80}
+          resolution={0.4}
           autoDemo={true}
-          autoSpeed={0.5}
-          autoIntensity={4.5}
-          className="opacity-90"
+          autoSpeed={0.3}
+          autoIntensity={3}
+          className="opacity-60"
         />
       </div>
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <motion.div style={{ y, opacity }} className="max-w-4xl">
-          <div className="flex items-center space-x-4 mb-8">
-            <div className="h-[1px] w-12 bg-red-600"></div>
-            <span className="text-red-500 text-xs font-bold uppercase tracking-[0.3em]">Our Origin</span>
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+        <motion.div style={{ y, opacity }} className="w-full">
+          <div className="flex flex-col items-center mb-16 text-center">
+            <span className="text-red-600 text-[10px] font-display font-black uppercase tracking-[0.4em] mb-4">Our Origin</span>
+            <div className="h-[1px] w-12 bg-red-600/30"></div>
           </div>
           
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white leading-tight uppercase tracking-tighter mix-blend-difference mb-12">
-            TWO LIFELONG FRIENDS, ONE SOFTWARE COMPANY BUILT FROM <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-900">TRUST, CREATIVITY, AND TIME</span>.
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white leading-[1.1] uppercase tracking-tighter mb-20 text-center max-w-4xl mx-auto">
+            Two lifelong friends, one software company built from <span className="premium-gradient-text">trust, creativity, and time</span>.
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="glass-panel p-8 border-l-2 border-l-red-600 bg-black/40 backdrop-blur-xl">
-              <h3 className="text-sm font-mono text-white mb-4 uppercase tracking-widest">The Beginning / 01</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            <div className="glass-panel p-10 bg-white/5 border-white/5 backdrop-blur-2xl">
+              <span className="text-[10px] font-display font-black text-red-600 uppercase tracking-[0.3em] block mb-6">01 // The Beginning</span>
+              <p className="text-gray-400 text-sm leading-relaxed uppercase tracking-widest font-medium">
                 KRAKEN started with two friends who met in Grade 1 and carried different dreams for years. One quietly wanted to become a wood carver, creating meaningful work with precision and patience. The other dreamed of becoming a software engineer, focused on building systems, solving problems, and leading through technology.
               </p>
             </div>
-            <div className="glass-panel p-8 border-l-2 border-l-red-600 bg-black/40 backdrop-blur-xl">
-              <h3 className="text-sm font-mono text-white mb-4 uppercase tracking-widest">The Return / 02</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                After O/Ls, life sent us down separate paths. We learned from different experiences, discovered our strengths, and evolved into a software engineer passionate about backend systems and immersive design. KRAKEN is where those journeys meet again as a software company.
+            <div className="glass-panel p-10 bg-white/5 border-white/5 backdrop-blur-2xl">
+              <span className="text-[10px] font-display font-black text-red-600 uppercase tracking-[0.3em] block mb-6">02 // The Return</span>
+              <p className="text-gray-400 text-sm leading-relaxed uppercase tracking-widest font-medium">
+                After years of separate growth, our paths merged again. KRAKEN is where the precision of craftsmanship meets the power of software engineering. We build with the same care and intent that a carver gives to wood, but with the scale and impact of modern technology.
               </p>
             </div>
           </div>

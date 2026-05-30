@@ -16,56 +16,68 @@ export function HeroSection() {
   };
 
   return (
-    <section id="hero" className="relative min-h-[100svh] w-full flex flex-col px-6 py-8 md:p-12 overflow-hidden z-10 pt-28 md:pt-32">
+    <section id="hero" className="relative min-h-[100svh] w-full flex flex-col items-center justify-center px-6 py-20 overflow-hidden z-10">
       
       {/* Overlay Gradients */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-dark)] via-transparent to-[var(--bg-dark)] z-10 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80 z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10 pointer-events-none" />
 
-      <div className="flex-1 flex flex-col justify-center relative z-20 w-full max-w-7xl mx-auto">
-        <div className="z-10 w-full md:w-1/2">
-          <motion.div
-             initial={{ opacity: 0, x: -20 }}
-             animate={{ opacity: 1, x: 0 }}
-             transition={{ duration: 1, delay: 0.2 }}
-             className="flex items-center space-x-4 mb-4"
-          >
-            <div className="h-[1px] w-12 bg-red-600"></div>
-            <span className="text-red-500 text-xs font-bold uppercase tracking-[0.3em]">Grade 1 friends. One shared future.</span>
-          </motion.div>
+      <div className="relative z-20 w-full max-w-5xl mx-auto text-center">
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 1, delay: 0.2 }}
+           className="flex flex-col items-center mb-8"
+        >
+          <span className="text-red-600 text-[10px] font-display font-black uppercase tracking-[0.4em] mb-4">Grade 1 Friends. One Shared Future.</span>
+          <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+        </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="massive-text mb-6 text-white"
-          >
-            KRAKEN
-          </motion.h1>
+        <motion.h1 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          className="massive-text mb-8 premium-gradient-text"
+        >
+          KRAKEN
+        </motion.h1>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="max-w-xl text-gray-400 leading-relaxed text-sm uppercase tracking-wide opacity-80"
-          >
-            KRAKEN began with two lifelong friends, two childhood dreams, and one vision to build something meaningful together.
-          </motion.p>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="mt-10 flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6"
-          >
-            <MagnetButton variant="primary" onClick={() => scrollToSection("contact")}>
-              Start a Project
-            </MagnetButton>
-            <MagnetButton variant="glass" onClick={() => scrollToSection("vision")}>
-              Explore Vision
-            </MagnetButton>
-          </motion.div>
-        </div>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="max-w-2xl mx-auto text-gray-400 leading-relaxed text-xs sm:text-sm uppercase tracking-[0.2em] font-medium"
+        >
+          Two lifelong friends, two childhood dreams, and one vision to build meaningful systems that redefine digital engagement.
+        </motion.p>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="mt-12 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8"
+        >
+          <MagnetButton variant="primary" onClick={() => scrollToSection("contact")}>
+            Start a Project
+          </MagnetButton>
+          <MagnetButton variant="glass" onClick={() => scrollToSection("vision")}>
+            Explore Vision
+          </MagnetButton>
+        </motion.div>
+      </div>
+
+      {/* Floating HUD Elements */}
+      <div className="absolute bottom-12 left-12 hidden lg:block z-20">
+          <div className="flex flex-col space-y-2">
+              <span className="text-[8px] font-mono text-white/20 uppercase tracking-[0.3em]">EST. 2026</span>
+              <span className="text-[8px] font-mono text-white/20 uppercase tracking-[0.3em]">CORE_LINK: ACTIVE</span>
+          </div>
+      </div>
+
+      <div className="absolute bottom-12 right-12 hidden lg:block z-20 text-right">
+          <div className="flex flex-col space-y-2">
+              <span className="text-[8px] font-mono text-white/20 uppercase tracking-[0.3em]">LAT: 6.9271° N</span>
+              <span className="text-[8px] font-mono text-white/20 uppercase tracking-[0.3em]">LON: 79.8612° E</span>
+          </div>
       </div>
     </section>
   );

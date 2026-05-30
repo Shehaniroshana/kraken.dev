@@ -36,83 +36,78 @@ export function Footer() {
     lanesPerRoad: 4,
     fov: 90,
     fovSpeedUp: 150,
-    speedUp: 2,
+    speedUp: 1.5,
     carLightsFade: 0.4,
     totalSideLightSticks: 20,
     lightPairsPerRoadWay: 40,
     shoulderLinesWidthPercentage: 0.05,
     brokenLinesWidthPercentage: 0.1,
     brokenLinesLengthPercentage: 0.5,
-    lightStickWidth: [0.12, 0.5],
-    lightStickHeight: [1.3, 1.7],
-    movingAwaySpeed: [60, 80],
-    movingCloserSpeed: [-120, -160],
-    carLightsLength: [400 * 0.03, 400 * 0.2],
-    carLightsRadius: [0.05, 0.14],
-    carWidthPercentage: [0.3, 0.5],
-    carShiftX: [-0.8, 0.8],
-    carFloorSeparation: [0, 5],
+    lightStickWidth: [0.1, 0.4],
+    lightStickHeight: [1.2, 1.6],
+    movingAwaySpeed: [50, 70],
+    movingCloserSpeed: [-100, -140],
+    carLightsLength: [400 * 0.03, 400 * 0.15],
+    carLightsRadius: [0.04, 0.12],
+    carWidthPercentage: [0.2, 0.4],
+    carShiftX: [-0.6, 0.6],
+    carFloorSeparation: [0, 4],
     colors: {
-      roadColor: 0x080808,
-      islandColor: 0x0a0a0a,
+      roadColor: 0x050505,
+      islandColor: 0x080808,
       background: 0x000000,
       shoulderLines: 0xffffff,
       brokenLines: 0xffffff,
-      leftCars: [0xDC2626, 0x991B1B, 0x450A0A],
+      leftCars: [0xDC2626, 0x7F1D1D, 0x450A0A],
       rightCars: [0xDC2626, 0x7F1D1D, 0x000000],
       sticks: 0xDC2626
     }
   }), []);
 
   return (
-    <footer ref={footerRef} className="pt-8 pb-6 border-t border-[var(--glass-border)] relative z-20 bg-black overflow-hidden">
+    <footer ref={footerRef} className="pt-20 pb-12 border-t border-white/5 relative z-20 bg-black overflow-hidden">
       {/* Dynamic Background */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0 opacity-20">
         {isInView && <Hyperspeed effectOptions={hyperspeedOptions} />}
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-6">
-            <div className="lg:col-span-2 relative">
-                {/* Icon container (kept small to avoid layout push) */}
-                <div className="relative mb-2">
-                    <div className="relative w-16 h-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+            <div className="lg:col-span-2">
+                <div className="flex items-center mb-8">
+                    <div className="relative w-10 h-10">
                         <Image
                             src={iconImg}
                             alt="Kraken Icon"
                             fill
-                            sizes="64px"
-                            className="object-contain drop-shadow-[0_0_12px_rgba(220,38,38,0.6)]"
+                            sizes="40px"
+                            className="object-contain"
                         />
                     </div>
+                    <span className="ml-3 font-display font-black text-xl tracking-tighter uppercase">KRAKEN</span>
                 </div>
-                <p className="text-gray-500 font-mono text-xs uppercase tracking-widest max-w-xs leading-relaxed">
-                  Built by two lifelong friends from Grade 1, now shaping software systems, digital platforms, and AI-powered experiences.
+                <p className="text-gray-500 font-display font-black text-[10px] uppercase tracking-[0.2em] max-w-xs leading-relaxed mb-12">
+                  Two lifelong friends shaping software systems, digital platforms, and AI-powered experiences with precision and intent.
                 </p>
 
-                <div className="mt-12 group">
-                    <h4 className="text-white font-bold uppercase tracking-widest text-[10px] mb-6 flex items-center gap-2">
+                <div className="max-w-sm">
+                    <h4 className="text-white font-display font-black uppercase tracking-[0.3em] text-[10px] mb-6 flex items-center gap-3">
                         <span className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
-                        Newsletter Subscription
+                        Newsletter
                     </h4>
-                    <div className="relative w-full max-w-sm border-b border-white/10 group-hover:border-red-600/30 transition-colors duration-500">
+                    <div className="relative border-b border-white/10 focus-within:border-red-600 transition-colors duration-500">
                         <input
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-transparent py-2 text-white font-mono text-xs focus:outline-none focus:border-red-500 transition-colors placeholder:text-gray-700 uppercase tracking-widest"
-                          placeholder="COMM_LINK@KRAKEN"
+                          className="w-full bg-transparent py-3 text-white font-display font-black text-[10px] focus:outline-none placeholder:text-white/5 uppercase tracking-[0.2em]"
+                          placeholder="IDENT_MAIL@KRAKEN"
                         />
                         <button
-                          onClick={() => {
-                            const to = "COMM_LINK@KRAKEN";
-                            const subject = encodeURIComponent("Newsletter Subscription");
-                            const body = encodeURIComponent(`Please subscribe this address:\n\n${email || "(no email provided)"}`);
-                            window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-                          }}
-                          className="absolute right-0 top-1/2 -translate-y-1/2 text-red-500 hover:text-white transition-all duration-300 hover:translate-x-1"
+                          onClick={() => {}}
+                          className="absolute right-0 top-1/2 -translate-y-1/2 text-white/20 hover:text-red-600 transition-all duration-500"
                         >
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                           </svg>
                         </button>
@@ -121,44 +116,38 @@ export function Footer() {
             </div>
 
             <div>
-                <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Intel</h4>
+                <h4 className="text-white font-display font-black uppercase tracking-[0.3em] text-[10px] mb-8">Intel</h4>
                 <ul className="space-y-4">
-                    <li><a href="/manifesto" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Manifesto</a></li>
-                    <li><a href="/architecture" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Architecture</a></li>
-                    <li><a href="#" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Career</a></li>
+                    <li><a href="/manifesto" className="text-gray-500 hover:text-white font-display font-black text-[10px] uppercase tracking-[0.2em] transition-colors">Manifesto</a></li>
+                    <li><a href="/architecture" className="text-gray-500 hover:text-white font-display font-black text-[10px] uppercase tracking-[0.2em] transition-colors">Architecture</a></li>
+                    <li><a href="#" className="text-gray-500 hover:text-white font-display font-black text-[10px] uppercase tracking-[0.2em] transition-colors">Careers</a></li>
                 </ul>
             </div>
 
             <div>
-                <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Directives</h4>
+                <h4 className="text-white font-display font-black uppercase tracking-[0.3em] text-[10px] mb-8">Directives</h4>
                 <ul className="space-y-4">
-                    <li><a href="/privacy" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Privacy Grid</a></li>
-                    <li><a href="/terms" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Terms of Service</a></li>
-                    <li><a href="/security" className="text-gray-500 hover:text-red-500 font-mono text-xs uppercase tracking-widest transition-colors">Security Protocol</a></li>
+                    <li><a href="/privacy" className="text-gray-500 hover:text-white font-display font-black text-[10px] uppercase tracking-[0.2em] transition-colors">Privacy</a></li>
+                    <li><a href="/terms" className="text-gray-500 hover:text-white font-display font-black text-[10px] uppercase tracking-[0.2em] transition-colors">Terms</a></li>
+                    <li><a href="/security" className="text-gray-500 hover:text-white font-display font-black text-[10px] uppercase tracking-[0.2em] transition-colors">Security</a></li>
                 </ul>
             </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex-1 hidden md:flex justify-start">
-            <p className="text-[10px] font-mono text-gray-600">© 2026 KRAKEN ENTERPRISE SYSTEMS. ALL PROTOCOLS ACTIVE.</p>
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-[8px] font-display font-black text-white/20 uppercase tracking-[0.3em]">
+            © 2026 KRAKEN ENTERPRISE SYSTEMS. ALL PROTOCOLS ACTIVE.
+          </p>
+
+          <div className="flex justify-center gap-8">
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="text-white/20 hover:text-white transition-colors"><Github size={16} /></a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="text-white/20 hover:text-white transition-colors"><Twitter size={16} /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-white/20 hover:text-white transition-colors"><Linkedin size={16} /></a>
           </div>
 
-          <div className="flex justify-center gap-6 order-1 md:order-2">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><Github size={18} /></a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><Twitter size={18} /></a>
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><Facebook size={18} /></a>
-            <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><TikTok size={18} /></a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors"><Linkedin size={18} /></a>
-          </div>
-
-          <div className="flex md:hidden order-2">
-            <p className="text-[10px] font-mono text-gray-600 text-center">© 2026 KRAKEN ENTERPRISE SYSTEMS. ALL PROTOCOLS ACTIVE.</p>
-          </div>
-
-          <div className="flex-1 flex justify-center md:justify-end items-center gap-2 text-[10px] font-mono text-gray-600 order-3">
-             <div className="w-2 h-2 rounded-full bg-[var(--color-red)] animate-ping" />
-             <span className="break-all text-center md:text-right">SECURE NODE 190.286.21.89</span>
+          <div className="flex items-center gap-3 text-[8px] font-display font-black text-white/20 uppercase tracking-[0.3em]">
+             <div className="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping" />
+             <span>Secure Node Active</span>
           </div>
         </div>
       </div>

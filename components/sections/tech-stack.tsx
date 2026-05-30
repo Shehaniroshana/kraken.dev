@@ -24,24 +24,22 @@ const technologies = [
 function TechNode({ tech, index }: { tech: typeof technologies[0]; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.06, duration: 0.5 }}
+      transition={{ delay: index * 0.05, duration: 0.5 }}
       className="group relative"
     >
-      <div className="relative px-6 py-4 bg-white/[0.02] border border-white/5 rounded-lg backdrop-blur-sm
-        hover:border-red-600/40 hover:bg-red-600/5 transition-all duration-500 cursor-default">
-        <div className="flex items-center justify-between gap-4">
-          <span className="text-sm font-bold text-white/80 uppercase tracking-wider group-hover:text-white transition-colors">
+      <div className="relative px-6 py-5 bg-white/[0.02] border border-white/5 rounded-2xl backdrop-blur-md
+        hover:border-white/10 hover:bg-white/5 transition-all duration-500 cursor-default shadow-[0_5px_15px_rgba(0,0,0,0.3)]">
+        <div className="flex flex-col gap-1">
+          <span className="text-[10px] font-display font-black text-white uppercase tracking-[0.2em]">
             {tech.name}
           </span>
-          <span className="text-[9px] font-mono text-gray-600 uppercase tracking-[0.2em] group-hover:text-red-500/60 transition-colors">
+          <span className="text-[8px] font-display font-black text-red-600/50 uppercase tracking-[0.3em]">
             {tech.category}
           </span>
         </div>
-        {/* Glow line on hover */}
-        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-red-600 to-transparent group-hover:w-full transition-all duration-700" />
       </div>
     </motion.div>
   );
@@ -54,28 +52,24 @@ export function TechStackSection() {
     offset: ["start start", "end end"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 60, damping: 30 });
   
-  // Parallax transforms for text layers
-  const y1 = useTransform(smoothProgress, [0, 1], ["0%", "-50%"]);
-  const y2 = useTransform(smoothProgress, [0, 1], ["0%", "30%"]);
+  const y1 = useTransform(smoothProgress, [0, 1], ["0%", "-30%"]);
+  const y2 = useTransform(smoothProgress, [0, 1], ["5%", "-5%"]);
   const opacity = useTransform(smoothProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.05, 1]);
 
   return (
     <section 
       id="tech" 
       ref={containerRef} 
-      className="relative h-[300vh] bg-black z-20"
+      className="relative h-[300vh] bg-black z-20 border-t border-white/5"
     >
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         
-        {/* CSS Background Effect - replaces heavy SoftAurora WebGL */}
+        {/* CSS Background Effect */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-950/20 via-black to-red-950/10" />
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/8 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-red-900/10 rounded-full blur-[100px]" 
-            style={{ animation: 'pulse 4s ease-in-out infinite alternate' }} />
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-red-600/5 rounded-full blur-[150px] animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-red-900/5 rounded-full blur-[120px]" />
         </div>
 
         {/* Foreground Content Layers */}
@@ -85,38 +79,38 @@ export function TechStackSection() {
         >
           <div className="relative h-screen w-full flex flex-col justify-center">
             
-            {/* Background Large Text (Parallax Layer 1) */}
+            {/* Background Large Text */}
             <motion.div 
               style={{ y: y1 }}
-              className="absolute inset-0 flex flex-col justify-around pointer-events-none opacity-[0.03]"
+              className="absolute inset-0 flex flex-col justify-around pointer-events-none opacity-[0.02]"
             >
-              <div className="text-[20vw] font-black text-white leading-none whitespace-nowrap -ml-[20%] uppercase tracking-tighter">CREATIVITY</div>
-              <div className="text-[20vw] font-black text-white leading-none whitespace-nowrap ml-[10%] uppercase tracking-tighter">ENGINEERING</div>
-              <div className="text-[20vw] font-black text-white leading-none whitespace-nowrap -ml-[10%] uppercase tracking-tighter">GROWTH</div>
+              <div className="text-[18vw] font-display font-black text-white leading-none whitespace-nowrap -ml-[10%] uppercase tracking-tighter">CREATIVITY</div>
+              <div className="text-[18vw] font-display font-black text-white leading-none whitespace-nowrap ml-[15%] uppercase tracking-tighter">ENGINEERING</div>
             </motion.div>
 
-            {/* Main Content (Parallax Layer 2) */}
+            {/* Main Content */}
             <motion.div 
-              style={{ y: y2, scale }}
-              className="max-w-5xl mx-auto text-center"
+              style={{ y: y2 }}
+              className="max-w-6xl mx-auto text-center relative z-10"
             >
-              <div className="inline-block px-3 py-1 border border-red-600/30 rounded-full bg-red-600/5 mb-8">
-                <span className="text-[10px] font-mono tracking-[0.4em] text-red-500 uppercase">Shared Tools</span>
+              <div className="flex flex-col items-center mb-12">
+                <span className="text-red-600 text-[10px] font-display font-black uppercase tracking-[0.4em] mb-4">The Stack</span>
+                <div className="h-[1px] w-12 bg-red-600/30"></div>
               </div>
               
-              <h2 className="text-6xl md:text-8xl lg:text-9xl font-display font-black text-white uppercase tracking-tighter leading-[0.85] mb-12">
+              <h2 className="text-5xl md:text-7xl lg:text-9xl font-display font-black text-white uppercase tracking-tighter leading-[0.85] mb-12">
                 The Tools <br /> 
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-white">
+                <span className="premium-gradient-text">
                     Behind the Story
                 </span>
               </h2>
 
-              <p className="text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed mb-16">
+              <p className="text-[10px] md:text-xs text-gray-500 font-display font-black max-w-xl mx-auto leading-relaxed mb-20 uppercase tracking-[0.2em]">
                 From backend systems and AI to design and motion, we use modern tools to turn two separate strengths into one focused software company.
               </p>
 
-              {/* Tech Grid - replaces heavy 3D TechCloud */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
+              {/* Tech Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-5xl mx-auto">
                 {technologies.map((tech, i) => (
                   <TechNode key={tech.name} tech={tech} index={i} />
                 ))}
@@ -126,26 +120,15 @@ export function TechStackSection() {
           </div>
         </motion.div>
 
-        {/* Floating Interactive Elements */}
         <div className="absolute bottom-12 left-12 z-20 hidden lg:block">
-            <div className="flex items-center space-x-4 group cursor-pointer">
-                <div className="w-12 h-[1px] bg-red-600 group-hover:w-20 transition-all duration-500" />
-            <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Scroll through the stack</span>
+            <div className="flex items-center space-x-4">
+                <div className="w-12 h-[1px] bg-red-600/50" />
+                <span className="text-[8px] font-display font-black text-white/20 uppercase tracking-[0.3em]">Scroll Through the Stack</span>
             </div>
-        </div>
-
-        <div className="absolute top-1/2 right-12 -translate-y-1/2 z-20 hidden lg:flex flex-col gap-8">
-            {["SYSTEMS", "NETWORK", "CLOUD", "AI"].map((label, i) => (
-                <div key={i} className="flex items-center space-x-4 justify-end">
-                    <span className="text-[9px] font-mono text-gray-600 uppercase tracking-widest">{label}</span>
-                    <div className="w-1.5 h-1.5 rounded-full border border-red-600/50" />
-                </div>
-            ))}
         </div>
 
       </div>
 
-      {/* Transitional Overlay */}
       <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black to-transparent pointer-events-none z-30" />
     </section>
   );

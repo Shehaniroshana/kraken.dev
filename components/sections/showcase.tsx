@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { MagnetButton } from "@/components/ui/magnet-button";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -137,10 +138,8 @@ export function ShowcaseSection() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  const titleY = useTransform(smoothProgress, [0, 1], ["18%", "-18%"]);
-  const titleOpacity = useTransform(smoothProgress, [0, 0.15, 0.85, 1], [0.85, 1, 1, 0.85]);
-  const paragraphY = useTransform(smoothProgress, [0, 1], ["8%", "-8%"]);
-  const paragraphOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0.7, 1, 1, 0.7]);
+  const titleY = useTransform(smoothProgress, [0, 1], ["10%", "-10%"]);
+  const titleOpacity = useTransform(smoothProgress, [0, 0.15, 0.85, 1], [0.8, 1, 1, 0.8]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -155,7 +154,6 @@ export function ShowcaseSection() {
                 trigger: triggerRef.current,
                 pin: true,
                 scrub: 1,
-                // Removed aggressive snapping to prevent interference with other sections
                 end: () => "+=" + (scrollContainerRef.current!.offsetWidth - window.innerWidth)
             }
         });
@@ -168,14 +166,15 @@ export function ShowcaseSection() {
 
   return (
     <section ref={triggerRef} id="showcase" className="relative h-screen bg-black overflow-hidden z-20 border-y border-white/5">
-        <div className="absolute top-8 left-4 md:top-12 md:left-12 z-30">
-            <h2 className="text-[10px] font-mono tracking-[0.4em] text-red-500 uppercase">Deployed Experiences</h2>
+        <div className="absolute top-12 left-12 z-30 flex items-center space-x-6">
+            <span className="text-red-600 text-[10px] font-display font-black uppercase tracking-[0.4em]">Deployed Projects</span>
+            <div className="h-[1px] w-12 bg-red-600/30"></div>
         </div>
         
         <div ref={scrollContainerRef} className="flex h-full w-[400vw]">
             {showcases.map((item, index) => (
-            <div key={index} className="w-[100vw] h-full flex flex-col justify-center items-center relative px-4 sm:px-8 md:px-20">
-                    <div className="w-full max-w-6xl aspect-video glass-panel relative overflow-hidden group border border-white/5 hover:border-red-600/30 transition-colors duration-700">
+            <div key={index} className="w-[100vw] h-full flex flex-col justify-center items-center relative px-6 md:px-20">
+                    <div className="w-full max-w-6xl aspect-video glass-panel relative overflow-hidden group rounded-[32px] border-white/5 hover:border-white/10 transition-all duration-700 shadow-[0_20px_80px_rgba(0,0,0,0.8)]">
                         
                         {/* Interactive Visualizer */}
                         <div className="absolute inset-0 bg-[#030303] z-0">
@@ -184,58 +183,55 @@ export function ShowcaseSection() {
                             {/* Scanning Line Overlay */}
                             <motion.div 
                               animate={{ top: ["-10%", "110%"] }}
-                              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-600/50 to-transparent z-10 opacity-30"
+                              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-600/30 to-transparent z-10 opacity-20"
                             />
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
                         </div>
 
                         {/* Content Overlay */}
-                        <div className="absolute inset-0 p-5 sm:p-8 md:p-16 flex flex-col justify-end z-20">
+                        <div className="absolute inset-0 p-10 md:p-16 flex flex-col justify-end z-20">
                              <motion.div
                                initial={{ opacity: 0, y: 20 }}
                                whileInView={{ opacity: 1, y: 0 }}
                                viewport={{ once: true }}
                                transition={{ delay: 0.3 }}
                              >
-                               <span className="text-[10px] font-mono text-red-500 tracking-[0.3em] uppercase mb-4 block">{item.category}</span>
+                               <span className="text-red-600 text-[10px] font-display font-black tracking-[0.4em] uppercase mb-6 block">{item.category}</span>
                                <motion.h3
                                  style={{ y: titleY, opacity: titleOpacity }}
-                                 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black text-white uppercase tracking-tighter leading-none mb-4 sm:mb-6"
+                                 className="text-4xl md:text-7xl lg:text-9xl font-display font-black text-white uppercase tracking-tighter leading-none mb-8"
                                >
                                  {item.title}
                                </motion.h3>
                                
-                               <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-                                  <button
+                               <div className="flex flex-wrap items-center gap-8">
+                                  <MagnetButton
+                                    variant="primary"
                                     onClick={() => {
                                       const el = document.getElementById("contact");
                                       if (el) el.scrollIntoView({ behavior: "smooth" });
-                                      else window.location.href = "#contact";
                                     }}
-                                    className="px-6 py-2 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all"
                                   >
                                     Analyze Case
-                                  </button>
-                                  <motion.p
-                                    style={{ y: paragraphY, opacity: paragraphOpacity }}
-                                    className="text-[10px] font-mono text-gray-600 uppercase tracking-widest"
-                                  >
-                                    [ {item.imageInfo} ]
-                                  </motion.p>
+                                  </MagnetButton>
+                                  <div className="flex items-center space-x-3">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+                                      <span className="text-[9px] font-display font-black text-white/20 uppercase tracking-[0.4em]">
+                                        [ {item.imageInfo} ]
+                                      </span>
+                                  </div>
                                </div>
                              </motion.div>
                         </div>
                         
                         {/* HUD Elements */}
-                        <div className="absolute top-8 right-8 text-right font-mono text-[9px] text-gray-700 space-y-1 pointer-events-none opacity-50">
-                            <div>PROJECT_ID: KRN-0{index + 1}</div>
-                            <div>AUTH: SYSTEM_ROOT</div>
-                            <div>DATE: 2026.05.22</div>
+                        <div className="absolute top-10 right-10 text-right font-display font-black text-[8px] text-white/10 space-y-1.5 pointer-events-none tracking-[0.2em] uppercase">
+                            <div>PRJ: KRN-0{index + 1}</div>
+                            <div>AUTH: SYSTEM</div>
+                            <div>DATE: 2026</div>
                         </div>
-
-                        <div className="absolute inset-0 border border-white/10 scale-[0.99] group-hover:scale-100 transition-all duration-700 pointer-events-none"></div>
                     </div>
                 </div>
             ))}

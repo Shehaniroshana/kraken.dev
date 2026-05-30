@@ -10,18 +10,18 @@ interface ButtonProps extends HTMLMotionProps<"button"> {
 }
 
 export function MagnetButton({ variant = "primary", children, className, ...props }: ButtonProps) {
-  const baseClasses = "relative inline-flex items-center justify-center overflow-hidden px-8 py-4 font-bold uppercase tracking-[0.2em] transition-all duration-300 text-xs";
+  const baseClasses = "relative inline-flex items-center justify-center overflow-hidden px-8 py-4 font-display font-black uppercase tracking-[0.25em] transition-all duration-500 text-[10px]";
   
   const variants = {
-    primary: "border border-red-600/30 bg-red-600/10 text-red-500 hover:bg-red-600 hover:text-white",
-    glass: "glass-panel glass-panel-hover text-white hover:text-[var(--color-red)] border-red-600/50",
-    outline: "border border-[var(--color-red)] text-[var(--color-red)] hover:bg-[var(--color-red-muted)] shadow-[inset_0_0_10px_rgba(220,38,38,0.2)]"
+    primary: "bg-white text-black hover:bg-red-600 hover:text-white shadow-[0_0_20px_rgba(255,255,255,0.1)]",
+    glass: "glass-panel bg-white/5 border-white/10 text-white hover:bg-white/10 hover:border-white/20",
+    outline: "border border-white/10 text-white hover:bg-white hover:text-black transition-colors"
   };
 
   return (
     <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ y: -2 }}
+      whileTap={{ y: 0, scale: 0.98 }}
       className={cn(baseClasses, variants[variant], className)}
       {...props}
     >

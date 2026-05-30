@@ -75,127 +75,87 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="relative py-32 z-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-red-900/10 to-transparent pointer-events-none"></div>
-
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
+        <div className="flex flex-col lg:flex-row gap-20 items-center">
           
           <div className="w-full lg:w-1/2">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-sm font-mono text-[var(--color-red)] tracking-[0.3em] uppercase mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-                Start the Next Chapter
-              </h2>
-              <h3 className="text-5xl md:text-6xl font-display font-black text-white uppercase tracking-tighter mb-8 leading-none">
-                Let&apos;s Build The <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-900">Next Chapter Together</span>
+              <span className="text-red-600 text-[10px] font-display font-black uppercase tracking-[0.4em] block mb-6">Start a Project</span>
+              <h3 className="text-4xl md:text-6xl font-display font-black text-white uppercase tracking-tighter mb-8 leading-[1.1]">
+                Let&apos;s build the <br/> <span className="premium-gradient-text">next chapter together</span>
               </h3>
-              <p className="text-gray-400 font-mono text-xs leading-relaxed mb-10 max-w-md uppercase tracking-wider">
+              <p className="text-gray-400 font-display font-black text-[10px] leading-relaxed mb-10 max-w-sm uppercase tracking-[0.2em]">
                 If the story resonates, we&apos;re ready to turn it into software systems, digital platforms, and AI-powered experiences that feel true to your vision.
               </p>
 
-              <div className="glass-panel p-6 inline-block font-mono text-xs text-gray-500 space-y-2 border-red-500/20 shadow-[0_4px_20px_rgba(220,38,38,0.1)]">
-                <div className="flex items-center gap-2">
-                  <span className="text-white">Communication Status:</span> READY TO LISTEN
+              <div className="glass-panel p-8 inline-block bg-white/5 border-white/5">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>
+                  <span className="text-white text-[9px] font-display font-black uppercase tracking-widest">Status: Ready</span>
                 </div>
-                <div>&gt; Awaiting the idea that starts everything...</div>
-                <div className="animate-pulse">&gt; _</div>
+                <div className="text-gray-500 text-[9px] font-display font-black uppercase tracking-widest">&gt; Awaiting the idea that starts everything...</div>
               </div>
             </motion.div>
           </div>
 
           <motion.div 
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full lg:w-1/2"
           >
-            <div className="glass-panel p-10 relative overflow-hidden group">
-              {/* Animated glow background */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[60px] rounded-full mix-blend-screen pointer-events-none transition-transform duration-1000 group-hover:scale-150 group-hover:bg-red-600/20"></div>
-              
-              <form ref={formRef} className="space-y-8 relative z-10" onSubmit={handleSubmit}>
-                <div className="relative group/input border-b border-white/10 transition-colors duration-300">
+            <div className="glass-panel p-10 bg-white/5 border-white/5 backdrop-blur-3xl rounded-[32px]">
+              <form ref={formRef} className="space-y-10" onSubmit={handleSubmit}>
+                <div className="relative group border-b border-white/10 focus-within:border-red-600 transition-colors duration-500">
+                  <label htmlFor="identifier" className="text-[9px] font-display font-black text-white/30 uppercase tracking-[0.3em] block mb-1">Your Name</label>
                   <input 
                     type="text" 
                     id="identifier"
                     name="identifier"
                     required
-                    className="w-full bg-transparent py-4 text-white font-mono text-sm focus:outline-none focus:border-red-500 transition-colors peer placeholder-transparent"
-                    placeholder="Full Name"
+                    className="w-full bg-transparent py-2 text-white font-display font-black text-xs focus:outline-none placeholder:text-white/5 uppercase tracking-[0.2em]"
+                    placeholder="IDENT_REQUIRED"
                   />
-                  <label 
-                    htmlFor="identifier"
-                    className="absolute left-0 top-4 text-gray-500 font-mono text-xs tracking-widest transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-red-500 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-red-500 uppercase pointer-events-none"
-                  >
-                    Your Name
-                  </label>
                 </div>
 
-                <div className="relative group/input border-b border-white/10 transition-colors duration-300">
-                  <input 
-                    type="text" 
-                    id="subject"
-                    name="subject"
-                    className="w-full bg-transparent py-4 text-white font-mono text-sm focus:outline-none focus:border-red-500 transition-colors peer placeholder-transparent"
-                    placeholder="Subject"
-                  />
-                  <label 
-                    htmlFor="subject"
-                    className="absolute left-0 top-4 text-gray-500 font-mono text-xs tracking-widest transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-red-500 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-red-500 uppercase pointer-events-none"
-                  >
-                    Project Subject
-                  </label>
-                </div>
-                
-                <div className="relative group/input border-b border-white/10 transition-colors duration-300">
+                <div className="relative group border-b border-white/10 focus-within:border-red-600 transition-colors duration-500">
+                  <label htmlFor="commlink" className="text-[9px] font-display font-black text-white/30 uppercase tracking-[0.3em] block mb-1">Email Address</label>
                   <input 
                     type="email" 
                     id="commlink"
                     name="commlink"
                     required
-                    className="w-full bg-transparent py-4 text-white font-mono text-sm focus:outline-none focus:border-red-500 transition-colors peer placeholder-transparent"
-                    placeholder="Email Address"
+                    className="w-full bg-transparent py-2 text-white font-display font-black text-xs focus:outline-none placeholder:text-white/5 uppercase tracking-[0.2em]"
+                    placeholder="LINK_REQUIRED"
                   />
-                  <label 
-                    htmlFor="commlink"
-                    className="absolute left-0 top-4 text-gray-500 font-mono text-xs tracking-widest transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-red-500 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-red-500 uppercase pointer-events-none"
-                  >
-                    Email Address
-                  </label>
                 </div>
 
-                <div className="relative group/input pt-6 border-b border-white/10 transition-colors duration-300">
+                <div className="relative group border-b border-white/10 focus-within:border-red-600 transition-colors duration-500">
+                  <label htmlFor="data" className="text-[9px] font-display font-black text-white/30 uppercase tracking-[0.3em] block mb-1">Message Details</label>
                   <textarea 
                     id="data"
                     name="data"
-                    rows={4}
+                    rows={3}
                     required
-                    className="w-full bg-transparent py-4 text-white font-mono text-sm focus:outline-none transition-colors resize-none peer placeholder-transparent"
-                    placeholder="Your Message"
+                    className="w-full bg-transparent py-2 text-white font-display font-black text-xs focus:outline-none resize-none placeholder:text-white/5 uppercase tracking-[0.2em]"
+                    placeholder="DESC_REQUIRED"
                   ></textarea>
-                  <label 
-                    htmlFor="data"
-                    className="absolute left-0 top-6 text-gray-500 font-mono text-xs tracking-widest transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-red-500 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-red-500 uppercase pointer-events-none"
-                  >
-                    Message Details
-                  </label>
                 </div>
 
                 {status?.type === "error" && (
-                  <div className="text-[10px] font-mono uppercase tracking-widest p-4 text-red-500 bg-red-500/5">
+                  <div className="text-[9px] font-display font-black uppercase tracking-widest p-4 text-red-600 bg-red-600/5 rounded-lg border border-red-600/20">
                     &gt; {status.message}
                   </div>
                 )}
 
-                <MagnetButton variant="primary" className="w-full mt-4 group/btn" disabled={isSubmitting}>
-                  <span>{isSubmitting ? 'Transmitting...' : 'Send Inquiry'}</span>
-                  <div className="ml-2 w-4 h-[1px] bg-white group-hover/btn:translate-x-2 transition-transform"></div>
+                <MagnetButton variant="primary" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? 'Transmitting...' : 'Send Inquiry'}
                 </MagnetButton>
               </form>
             </div>
@@ -204,62 +164,24 @@ export function ContactSection() {
       </div>
 
       {isSuccessOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-6 py-10">
-          <button
-            type="button"
-            aria-label="Close success modal"
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            onClick={closeSuccessModal}
-          />
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={closeSuccessModal} />
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-md"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative z-10 w-full max-w-md glass-panel p-12 text-center bg-black/40 rounded-[32px] border-red-600/30 shadow-[0_0_50px_rgba(220,38,38,0.2)]"
           >
-            <div className="glass-panel border border-red-500/30 bg-black/80 p-8 text-center shadow-[0_0_40px_rgba(220,38,38,0.2)] overflow-hidden">
-              <div className="absolute -top-24 -left-24 h-48 w-48 rounded-full bg-red-600/30 blur-3xl" />
-              <div className="absolute -bottom-28 -right-16 h-48 w-48 rounded-full bg-red-900/40 blur-3xl" />
-              <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-red-500/60 to-transparent animate-pulse" />
-
-              <div className="relative z-10">
-                <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-red-500/40 bg-red-500/10">
-                  <svg
-                    width="28"
-                    height="28"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-red-400"
-                  >
-                    <path d="M20 6 9 17l-5-5" />
-                  </svg>
-                </div>
-                <p className="text-xs font-mono uppercase tracking-[0.4em] text-red-400 mb-3">
-                  Transmission Confirmed
-                </p>
-                <h4 className="text-2xl font-display font-black text-white uppercase tracking-tight">
-                  Signal Received
-                </h4>
-                <p className="mt-4 text-xs font-mono uppercase tracking-widest text-gray-400">
-                  {status?.message || "Handshake complete. Transmission received."}
-                </p>
-                <div className="mt-6 flex items-center justify-center gap-3 text-[10px] font-mono uppercase tracking-[0.3em] text-red-500/80">
-                  <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-ping" />
-                  Secure Channel Locked
-                </div>
-                <button
-                  type="button"
-                  onClick={closeSuccessModal}
-                  className="mt-8 w-full border border-red-500/40 bg-red-500/10 px-6 py-3 text-[10px] font-mono uppercase tracking-[0.4em] text-red-300 transition hover:border-red-400 hover:text-white hover:bg-red-500/20"
-                >
-                  Continue
-                </button>
-              </div>
+            <div className="w-16 h-16 rounded-full border border-red-600/30 flex items-center justify-center mx-auto mb-8 bg-red-600/5">
+                <div className="w-2 h-2 rounded-full bg-red-600 animate-ping"></div>
             </div>
+            <h4 className="text-2xl font-display font-black text-white uppercase tracking-tighter mb-4">Signal Received</h4>
+            <p className="text-[10px] font-display font-black text-gray-500 uppercase tracking-[0.3em] mb-10">Handshake complete. Transmission received.</p>
+            <button
+              onClick={closeSuccessModal}
+              className="w-full py-4 bg-white text-black text-[10px] font-display font-black uppercase tracking-[0.3em] hover:bg-red-600 hover:text-white transition-all duration-500"
+            >
+              Back to Core
+            </button>
           </motion.div>
         </div>
       )}
